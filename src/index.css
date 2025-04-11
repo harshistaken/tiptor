@@ -1,16 +1,23 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @plugin "@tailwindcss/typography";
-
 /* @config "../tailwind.config.js"; */
 
+/* Fonts */
 @font-face {
-    font-family: "GeistMono";
+    font-family: "Inter";
     font-style: normal;
     font-weight: 100 900;
     font-display: swap;
-    src: url("@/assets/fonts/GeistMonoVF.woff") format("woff");
+    src: url("@/assets/fonts/Inter.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("@/assets/fonts/Roboto.ttf") format("truetype-variations");
 }
 
 @font-face {
@@ -22,15 +29,16 @@
 }
 
 @font-face {
-    font-family: "Inter";
+    font-family: "JetBrainsMono";
     font-style: normal;
     font-weight: 100 900;
     font-display: swap;
-    src: url("@/assets/fonts/Inter.woff2") format("woff2");
+    src: url("@/assets/fonts/JetBrainsMono.ttf") format("truetype-variations");
 }
 
 @custom-variant dark (&:is(.dark *));
 
+/* Theme */
 :root {
     --radius: 0.625rem;
     --background: oklch(1 0 0);
@@ -71,7 +79,7 @@
     --foreground: oklch(0.985 0 0);
     --card: oklch(0.205 0 0);
     --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.205 0 0);
+    --popover: oklch(0.269 0 0);
     --popover-foreground: oklch(0.985 0 0);
     --primary: oklch(0.922 0 0);
     --primary-foreground: oklch(0.205 0 0);
@@ -79,7 +87,7 @@
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
+    --accent: oklch(0.371 0 0);
     --accent-foreground: oklch(0.985 0 0);
     --destructive: oklch(0.704 0.191 22.216);
     --border: oklch(1 0 0 / 10%);
@@ -97,13 +105,14 @@
     --sidebar-accent: oklch(0.269 0 0);
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.556 0 0);
+    --sidebar-ring: oklch(0.439 0 0);
 }
 
 @theme inline {
-    --font-geist-mono: "GeistMono", var(--font-mono);
     --font-inter: "Inter", var(--font-sans);
+    --font-roboto: "Roboto", var(--font-sans);
     --font-open-sans: "OpenSans", var(--font-sans);
+    --font-jetbrains-mono: "JetBrainsMono", var(--font-mono);
 
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -149,11 +158,11 @@
         @apply border-border outline-ring/50;
     }
     body {
-        @apply bg-background text-foreground font-sans;
+        @apply bg-background text-foreground font-inter;
     }
     pre,
     code {
-        @apply font-geist-mono;
+        @apply font-jetbrains-mono;
     }
 }
 
