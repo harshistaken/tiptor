@@ -3,15 +3,15 @@ import { Link } from "react-router";
 
 export function HomeHeroSection() {
     return (
-        <section className="text-center py-28 sm:py-56 px-6 flex flex-col gap-6 font-inter max-w-6xl mx-auto">
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl tracking-tight">
+        <section className="py-28 sm:py-56 px-4 flex flex-col gap-6 font-inter max-w-6xl mx-auto text-center">
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl tracking-tight leading-normal">
                 <span>The modern </span>
-                <span className="bg-foreground/90 text-background px-4 ring-2 ring-offset-2 ring-foreground rounded-full capitalize">
-                    editor
+                <span className="bg-foreground/90 text-background px-4 ring-2 ring-offset-2 ring-foreground rounded-full whitespace-nowrap">
+                    Text editor
                 </span>
                 <span> for web apps.</span>
             </h1>
-            <p className="text-xl xs:text-2xl sm:text-3xl tracking-tight text-muted-foreground max-w-xl mx-auto">
+            <p className="text-xl xs:text-2xl sm:text-3xl tracking-tight text-muted-foreground max-w-xl mx-auto leading-snug">
                 A high-quality, customizable editor built with{" "}
                 <Link
                     to="https://tiptap.dev/"

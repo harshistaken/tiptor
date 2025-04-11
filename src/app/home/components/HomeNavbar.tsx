@@ -6,10 +6,10 @@ import { Link, NavLink } from "react-router";
 export function HomeNavbar() {
     return (
         <div className="w-full max-w-6xl mx-auto flex items-center justify-between p-4">
-            <div className="flex items-center justify-center gap-1">
+            <Link to="/" className="flex items-center justify-center gap-1">
                 <Icons.LogoTiptor className="size-6" />
                 <span className="text-xl font-medium">Tiptor</span>
-            </div>
+            </Link>
 
             <div className="flex items-center justify-center gap-4">
                 <NavLink
@@ -33,7 +33,6 @@ export function HomeNavbar() {
                 <Link to="https://github.com/harshwasthere/tiptor.git" target="_blank">
                     <GithubIcon className="size-5 cursor-pointer" />
                 </Link>
-
                 <ThemeToggle />
             </div>
         </div>

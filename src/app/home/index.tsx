@@ -1,11 +1,9 @@
-import { HomeNavbar } from "./components/HomeNavbar";
-import { HomeHeroSection } from "./components/HomeHeroSection";
+import { HomeEditorSection } from "./components/HomeEditorSection";
 
 export default function HomePage() {
     return (
-        <div>
-            <HomeNavbar />
-            <HomeHeroSection />
+        <div className="w-full h-full bg-background text-foreground">
+            <HomeEditorSection />
         </div>
     );
 }
