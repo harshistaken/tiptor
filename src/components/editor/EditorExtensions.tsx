@@ -413,6 +413,74 @@ export function TextColorSelector({
     );
 }
 
+export function ListSelector({ editor, className }: { editor: Editor | null; className?: string }) {
+    const [open, setOpen] = React.useState(false);
+
+    if (!editor) return null;
+
+    const listItems = [
+        {
+            label: "Unordered list",
+            icon: <ListIcon className="size-4" />,
+            shortcut: "⌘⇧8",
+            onClick: () => editor.chain().focus().toggleBulletList().run(),
+            isActive: editor.isActive("bulletList"),
+        },
+        {
+            label: "Ordered list",
+            icon: <ListOrderedIcon className="size-4" />,
+            shortcut: "⌘⇧7",
+            onClick: () => editor.chain().focus().toggleOrderedList().run(),
+            isActive: editor.isActive("orderedList"),
+        },
+        {
+            label: "Task list",
+            icon: <ListTodoIcon className="size-4" />,
+            shortcut: "⌘⇧9",
+            onClick: () => editor.chain().focus().toggleTaskList().run(),
+            isActive: editor.isActive("taskList"),
+        },
+    ];
+
+    return (
+        <DropdownMenu open={open} onOpenChange={setOpen}>
+            <DropdownMenuTrigger asChild>
+                <Button
+                    type="button"
+                    variant="secondary"
+                    role="dropdown-menu"
+                    aria-expanded={open}
+                    className={cn("gap-1 cursor-pointer", className)}
+                >
+                    {listItems.find((listItem) => listItem.isActive)?.icon || listItems[0].icon}
+                    <ChevronDown className="text-muted-foreground" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-52">
+                <DropdownMenuLabel>Lists</DropdownMenuLabel>
+                <DropdownMenuGroup>
+                    {listItems.map((listItem) => (
+                        <DropdownMenuItem
+                            key={listItem.label}
+                            onSelect={() => listItem.onClick()}
+                            className={cn(
+                                "cursor-pointer",
+                                listItem.isActive && "bg-accent text-accent-foreground",
+                            )}
+                        >
+                            {listItem.icon}
+                            {listItem.label}
+                            {listItem.shortcut && (
+                                <DropdownMenuShortcut>{listItem.shortcut}</DropdownMenuShortcut>
+                            )}
+                        </DropdownMenuItem>
+                    ))}
+                </DropdownMenuGroup>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+}
+
 export function LinkSelector({ editor, className }: { editor: Editor | null; className?: string }) {
     const [open, setOpen] = React.useState(false);
 

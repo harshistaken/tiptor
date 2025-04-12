@@ -1,3 +1,3 @@
 export function BasicEditorContent() {
-    return <div className="flex-1"></div>;
+    return <div className="w-full h-full flex-1 rounded-b-xl"></div>;
 }
