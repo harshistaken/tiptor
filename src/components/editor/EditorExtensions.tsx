@@ -58,6 +58,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
  * - TextStyleSelector
  * - TextAlignSelector
  * - TextColorSelector
+ * - ListSelector
  * - LinkSelector
  *
  * @returns The selector components for the editor
@@ -121,23 +122,24 @@ export function FontSelector({ editor, className }: { editor: Editor | null; cla
             <PopoverTrigger asChild>
                 <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
+                    size="sm"
                     role="combobox"
                     aria-expanded={open}
                     className={cn(
-                        "w-full justify-between max-w-44 font-normal cursor-pointer",
+                        "justify-between w-44 font-normal cursor-pointer h-7 text-xs shrink-0",
                         className,
                     )}
                 >
                     {fonts.find((option) => option.isActive)?.font || "Select font..."}
-                    <ChevronsUpDown className="text-muted-foreground" />
+                    <ChevronsUpDown className="size-3 text-muted-foreground" />
                 </Button>
             </PopoverTrigger>
             <PopoverContent className="w-(--radix-popover-trigger-width) p-0">
                 <Command>
-                    <CommandInput placeholder="Search font ..." />
+                    <CommandInput placeholder="Search font..." className="text-xs h-7" />
                     <CommandList>
-                        <CommandEmpty className="text-muted-foreground">
+                        <CommandEmpty className="py-6 text-xs text-center text-muted-foreground">
                             No such font found.
                         </CommandEmpty>
                         <CommandGroup>
@@ -149,12 +151,12 @@ export function FontSelector({ editor, className }: { editor: Editor | null; cla
                                         font.onClick();
                                         setOpen(false);
                                     }}
-                                    className="cursor-pointer"
+                                    className="text-xs cursor-pointer h-7"
                                 >
                                     {font.font}
                                     <CheckIcon
                                         className={cn(
-                                            "ml-auto",
+                                            "size-3 ml-auto",
                                             font.isActive ? "opacity-100" : "opacity-0",
                                         )}
                                     />
@@ -183,27 +185,27 @@ export function TextStyleSelector({
     const textStyles = [
         {
             label: "Text",
-            icon: <TypeIcon className="size-4" />,
+            icon: <TypeIcon className="size-3" />,
             isActive: editor?.isActive("paragraph"),
             onClick: () => editor?.chain().focus().setParagraph().run(),
         },
         {
             label: "Heading 1",
-            icon: <Heading1Icon className="size-5" />,
+            icon: <Heading1Icon className="size-4" />,
             shortcut: "#",
             isActive: editor?.isActive("heading", { level: 1 }),
             onClick: () => editor?.chain().focus().toggleHeading({ level: 1 }).run(),
         },
         {
             label: "Heading 2",
-            icon: <Heading2Icon className="size-5" />,
+            icon: <Heading2Icon className="size-4" />,
             shortcut: "##",
             isActive: editor?.isActive("heading", { level: 2 }),
             onClick: () => editor?.chain().focus().toggleHeading({ level: 2 }).run(),
         },
         {
             label: "Heading 3",
-            icon: <Heading3Icon className="size-5" />,
+            icon: <Heading3Icon className="size-4" />,
             shortcut: "###",
             isActive: editor?.isActive("heading", { level: 3 }),
             onClick: () => editor?.chain().focus().toggleHeading({ level: 3 }).run(),
@@ -215,24 +217,25 @@ export function TextStyleSelector({
             <DropdownMenuTrigger asChild>
                 <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
+                    size="sm"
                     role="dropdown-menu"
                     aria-expanded={open}
-                    className={cn("gap-1 cursor-pointer", className)}
+                    className={cn("gap-1 cursor-pointer h-7 text-xs", className)}
                 >
                     {textStyles.find((textStyle) => textStyle.isActive)?.icon || textStyles[0].icon}
-                    <ChevronDown className="text-muted-foreground" />
+                    <ChevronDown className="size-3 text-muted-foreground" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-52">
-                <DropdownMenuLabel>Text style</DropdownMenuLabel>
-                <DropdownMenuGroup>
+            <DropdownMenuContent align="end" className="w-52">
+                <DropdownMenuLabel className="text-xs">Text style</DropdownMenuLabel>
+                <DropdownMenuGroup className="space-y-[1px]">
                     {textStyles.map((textStyle) => (
                         <DropdownMenuItem
                             key={textStyle.label}
                             onSelect={() => textStyle.onClick()}
                             className={cn(
-                                "cursor-pointer",
+                                "cursor-pointer h-7 text-xs",
                                 textStyle.isActive && "bg-accent text-accent-foreground",
                             )}
                         >
@@ -297,24 +300,25 @@ export function TextAlignSelector({
             <DropdownMenuTrigger asChild>
                 <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
+                    size="sm"
                     role="dropdown-menu"
                     aria-expanded={open}
-                    className={cn("gap-1 cursor-pointer", className)}
+                    className={cn("gap-1 cursor-pointer h-7 text-xs", className)}
                 >
                     {textAligns.find((textAlign) => textAlign.isActive)?.icon || textAligns[0].icon}
-                    <ChevronDown className="text-muted-foreground" />
+                    <ChevronDown className="size-3 text-muted-foreground" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-52">
-                <DropdownMenuLabel>Text align</DropdownMenuLabel>
-                <DropdownMenuGroup>
+            <DropdownMenuContent align="end" className="w-52">
+                <DropdownMenuLabel className="text-xs">Text align</DropdownMenuLabel>
+                <DropdownMenuGroup className="space-y-[1px]">
                     {textAligns.map((textAlign) => (
                         <DropdownMenuItem
                             key={textAlign.label}
                             onSelect={() => textAlign.onClick()}
                             className={cn(
-                                "cursor-pointer",
+                                "cursor-pointer h-7 text-xs",
                                 textAlign.isActive && "bg-accent text-accent-foreground",
                             )}
                         >
@@ -375,31 +379,32 @@ export function TextColorSelector({
             <DropdownMenuTrigger asChild>
                 <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
+                    size="sm"
                     role="dropdown-menu"
                     aria-expanded={open}
-                    className={cn("gap-1 cursor-pointer", className)}
+                    className={cn("gap-1 cursor-pointer h-7 text-xs", className)}
                 >
                     <PaletteIcon
                         className="size-4"
                         style={{ color: editor.getAttributes("textStyle").color }}
                     />
-                    <ChevronDown className="text-muted-foreground" />
+                    <ChevronDown className="size-3 text-muted-foreground" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 align="center"
-                className="w-fit p-2 flex gap-2 items-center justify-center rounded-full"
+                className="flex items-center justify-center gap-2 p-1.5 rounded-full w-fit"
             >
                 {/* Default color is basically the already provided color so we just need to unset the color */}
                 <CircleIcon
-                    className="size-5 text-foreground fill-foreground opacity-50 cursor-pointer"
+                    className="opacity-50 cursor-pointer size-4 text-foreground fill-foreground"
                     onClick={() => editor.chain().focus().unsetColor().run()}
                 />
                 {textColors.map((textColor) => (
                     <CircleIcon
                         key={textColor.value}
-                        className="size-5 cursor-pointer"
+                        className="cursor-pointer size-4"
                         style={{
                             color: textColor.value,
                             fill: textColor.value,
@@ -447,24 +452,25 @@ export function ListSelector({ editor, className }: { editor: Editor | null; cla
             <DropdownMenuTrigger asChild>
                 <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
+                    size="sm"
                     role="dropdown-menu"
                     aria-expanded={open}
-                    className={cn("gap-1 cursor-pointer", className)}
+                    className={cn("gap-1 cursor-pointer h-7 text-xs", className)}
                 >
                     {listItems.find((listItem) => listItem.isActive)?.icon || listItems[0].icon}
-                    <ChevronDown className="text-muted-foreground" />
+                    <ChevronDown className="size-3 text-muted-foreground" />
                 </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="start" className="w-52">
-                <DropdownMenuLabel>Lists</DropdownMenuLabel>
-                <DropdownMenuGroup>
+            <DropdownMenuContent align="end" className="w-52">
+                <DropdownMenuLabel className="text-xs">Lists</DropdownMenuLabel>
+                <DropdownMenuGroup className="space-y-[1px]">
                     {listItems.map((listItem) => (
                         <DropdownMenuItem
                             key={listItem.label}
                             onSelect={() => listItem.onClick()}
                             className={cn(
-                                "cursor-pointer",
+                                "cursor-pointer h-7 text-xs",
                                 listItem.isActive && "bg-accent text-accent-foreground",
                             )}
                         >
@@ -547,13 +553,13 @@ export function LinkSelector({ editor, className }: { editor: Editor | null; cla
             </DropdownMenuTrigger>
             <DropdownMenuContent
                 align="end"
-                className="w-fit p-1.5 pr-4 flex gap-2 items-center justify-center rounded-full"
+                className="w-fit p-1.5 pr-4 flex gap-1.5 items-center justify-center rounded-full"
             >
                 <Input
                     ref={inputRef}
                     type="text"
                     placeholder="Enter or paste a url here"
-                    className="w-full outline-none border-none rounded-[calc(infinity_*_1px_-_0.375rem))]"
+                    className="w-full outline-none border-none rounded-[calc(infinity_*_1px_-_0.375rem))] h-7 text-xs md:text-xs"
                     defaultValue={linkValue || ""}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
@@ -624,10 +630,15 @@ function ExtensionToggleButton({
     return (
         <Button
             type="button"
-            variant="secondary"
+            variant="ghost"
             size="icon"
             role="button"
-            className={cn("cursor-pointer", isActive && "bg-secondary/80", className)}
+            className={cn(
+                "cursor-pointer size-7",
+                isActive &&
+                    "border bg-background shadow-xs dark:bg-input/30 dark:border-input hover:bg-background",
+                className,
+            )}
             onClick={onClick}
             disabled={disabled}
             {...props}

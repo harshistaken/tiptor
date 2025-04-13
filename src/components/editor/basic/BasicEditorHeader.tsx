@@ -1,7 +1,12 @@
 import { cn } from "@/lib/utils";
 import { type Editor } from "@tiptap/react";
 import { Separator } from "@/components/ui/separator";
-import { BlockQuoteToggle, OrderedListToggle, UnorderedListToggle } from "../EditorExtensions";
+import {
+    BlockQuoteToggle,
+    ListSelector,
+    OrderedListToggle,
+    UnorderedListToggle,
+} from "../EditorExtensions";
 import {
     FontSelector,
     LinkSelector,
@@ -28,34 +33,45 @@ export function BasicEditorHeader({ editor, className }: BasicEditorHeaderProps)
     return (
         <div
             className={cn(
-                "h-12 w-full border-b backdrop-blur-md rounded-t-xl p-2",
-                "flex gap-2 items-center justify-start @container/editor-header theme-scaled",
+                "w-full @container/editor-header flex items-center justify-center",
                 className,
             )}
         >
-            <FontSelector editor={editor} />
-            <TextStyleSelector editor={editor} />
-            <TextAlignSelector editor={editor} />
+            <div className="flex items-center justify-center gap-1 p-2 mx-auto rounded-b-xl max-[790px]:w-full max-[790px]:rounded-t-xl max-[790px]:rounded-b-none bg-foreground/2">
+                <FontSelector editor={editor} />
+                <TextStyleSelector editor={editor} />
+                <TextAlignSelector editor={editor} className="@max-[475px]/editor-header:hidden" />
 
-            <BasicEditorHeaderSeparator />
-            <BoldToggle editor={editor} />
-            <ItalicToggle editor={editor} />
-            <UnderlineToggle editor={editor} />
-            <StrikethroughToggle editor={editor} />
+                <BasicEditorHeaderSeparator className="@max-[475px]/editor-header:hidden" />
+                <BoldToggle editor={editor} className="@max-[730px]/editor-header:hidden" />
+                <ItalicToggle editor={editor} className="@max-[730px]/editor-header:hidden" />
+                <UnderlineToggle editor={editor} className="@max-[730px]/editor-header:hidden" />
+                <StrikethroughToggle
+                    editor={editor}
+                    className="@max-[730px]/editor-header:hidden"
+                />
 
-            <BasicEditorHeaderSeparator />
+                <BasicEditorHeaderSeparator className="@max-[475px]/editor-header:hidden" />
 
-            <BlockQuoteToggle editor={editor} />
-            <UnorderedListToggle editor={editor} />
-            <OrderedListToggle editor={editor} />
-            <TaskListToggle editor={editor} />
+                <BlockQuoteToggle editor={editor} className="@max-[400px]/editor-header:hidden" />
+                <UnorderedListToggle
+                    editor={editor}
+                    className="@max-[610px]/editor-header:hidden"
+                />
+                <OrderedListToggle editor={editor} className="@max-[610px]/editor-header:hidden" />
+                <TaskListToggle editor={editor} className="@max-[610px]/editor-header:hidden" />
+                <ListSelector
+                    editor={editor}
+                    className="@max-[400px]/editor-header:hidden @min-[610px]/editor-header:hidden "
+                />
 
-            <BasicEditorHeaderSeparator />
+                <BasicEditorHeaderSeparator className="@max-[475px]/editor-header:hidden" />
 
-            <TextColorSelector editor={editor} />
-            <CodeToggle editor={editor} />
-            <LinkSelector editor={editor} />
-            <HorizontalRuleToggle editor={editor} />
+                <TextColorSelector editor={editor} className="@max-[565px]/editor-header:hidden" />
+                <CodeToggle editor={editor} className="@max-[400px]/editor-header:hidden" />
+                <HorizontalRuleToggle editor={editor} />
+                <LinkSelector editor={editor} className="@max-[565px]/editor-header:hidden" />
+            </div>
         </div>
     );
 }
