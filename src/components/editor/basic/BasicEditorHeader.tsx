@@ -37,7 +37,7 @@ export function BasicEditorHeader({ editor, className }: BasicEditorHeaderProps)
                 className,
             )}
         >
-            <div className="flex items-center justify-center gap-1 p-2 mx-auto rounded-b-xl max-[790px]:w-full max-[790px]:rounded-t-xl max-[790px]:rounded-b-none bg-foreground/2">
+            <div className="flex items-center justify-center gap-1 p-2 mx-auto rounded-b-xl max-[790px]:w-full max-[790px]:rounded-t-xl max-[790px]:rounded-b-none bg-gray-50 dark:bg-card">
                 <FontSelector editor={editor} />
                 <TextStyleSelector editor={editor} />
                 <TextAlignSelector editor={editor} className="@max-[475px]/editor-header:hidden" />
