@@ -14,16 +14,23 @@ import Link from "@tiptap/extension-link";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
 import { cn } from "./utils";
+import React from "react";
 
 const lowlight = createLowlight(all);
 
 interface BaseEditorProps {
     placeholder?: string;
     content?: string;
+    initialContent: string;
     onEditorUpdate?: (html: string) => void;
 }
 
-export function useBaseEditor({ placeholder, content, onEditorUpdate }: BaseEditorProps) {
+export function useBaseEditor({
+    placeholder,
+    content,
+    initialContent,
+    onEditorUpdate,
+}: BaseEditorProps) {
     const editor = useEditor({
         /**
          * extensions are the extensions that will be used in the editor
@@ -146,11 +153,22 @@ export function useBaseEditor({ placeholder, content, onEditorUpdate }: BaseEdit
                     // placeholder styles : only show when editor is empty
                     "[&_.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.is-editor-empty:first-child::before]:text-muted-foreground [&_.is-editor-empty:first-child::before]:float-left [&_.is-editor-empty:first-child::before]:h-0 [&_.is-editor-empty:first-child::before]:pointer-events-none",
                     // editor styles
-                    "prose prose-sm prose-neutral max-w-none focus:outline-none p-4",
+                    "prose prose-sm dark:prose-invert prose-neutral max-w-none outline-none focus:outline-none p-4 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+                    //layout
+                    "max-w-[730px] w-full my-10 max-auto",
+                    // list styles
+                    "[&_ul]:list-disc [&_ol]:list-decimal [&_ul>li]:marker:text-foreground/50 [&_ol>li]:marker:text-foreground/50",
                 ),
             },
         },
     });
+
+    // Update content when it changes externally
+    React.useEffect(() => {
+        if (editor && initialContent !== editor.getHTML()) {
+            editor.commands.setContent(initialContent, false);
+        }
+    }, [editor, initialContent]);
 
     return editor;
 }
