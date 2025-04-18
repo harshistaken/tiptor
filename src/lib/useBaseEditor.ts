@@ -1,3 +1,5 @@
+import React from "react";
+import { cn } from "./utils";
 import { useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -13,8 +15,7 @@ import FontFamily from "@tiptap/extension-font-family";
 import Link from "@tiptap/extension-link";
 import Subscript from "@tiptap/extension-subscript";
 import Superscript from "@tiptap/extension-superscript";
-import { cn } from "./utils";
-import React from "react";
+import Color from "@tiptap/extension-color";
 
 const lowlight = createLowlight(all);
 
@@ -82,6 +83,7 @@ export function useBaseEditor({
             FontFamily,
             Subscript,
             Superscript,
+            Color,
             // enable attach links to text
             Link.configure({
                 openOnClick: false,
@@ -144,21 +146,11 @@ export function useBaseEditor({
         editorProps: {
             attributes: {
                 /**
-                 * TODO: Check if h1 is semibold without strong and can be remove strong
                  * TODO: Add syntax highlighting colors for code blocks
                  * TODO: add Break line after cetain cases like blockquote, code, strike, etc.
                  * TODO: Checklist toggle don't remove the placeholder
                  */
-                class: cn(
-                    // placeholder styles : only show when editor is empty
-                    "[&_.is-editor-empty:first-child::before]:content-[attr(data-placeholder)] [&_.is-editor-empty:first-child::before]:text-muted-foreground [&_.is-editor-empty:first-child::before]:float-left [&_.is-editor-empty:first-child::before]:h-0 [&_.is-editor-empty:first-child::before]:pointer-events-none",
-                    // editor styles
-                    "prose prose-sm dark:prose-invert prose-neutral max-w-none outline-none focus:outline-none p-4 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
-                    //layout
-                    "max-w-[730px] w-full my-10 max-auto",
-                    // list styles
-                    "[&_ul]:list-disc [&_ol]:list-decimal [&_ul>li]:marker:text-foreground/50 [&_ol>li]:marker:text-foreground/50",
-                ),
+                class: cn("max-w-[730px] w-full p-4 mx-auto tiptor-editor-styles"),
             },
         },
     });

@@ -8,7 +8,8 @@ export function BasicEditor() {
     });
 
     return (
-        <div className="max-w-6xl w-full h-[700px] flex flex-col border rounded-xl shadow-sm">
+        // add some background color for dark mode as it's look all black
+        <div className="max-w-6xl w-full h-[700px] flex flex-col border rounded-xl shadow-sm dark:bg-foreground/5">
             <BasicEditorHeader editor={editor} />
             <BasicEditorContent editor={editor} />
         </div>
