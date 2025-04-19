@@ -1,5 +1,5 @@
 import { Icons } from "@/assets/icons";
-import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { ThemeToggle } from "@/components/theme/theme-toggle";
 import { GithubIcon } from "lucide-react";
 import { Link, NavLink } from "react-router";
 
