@@ -1,8 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+
+/* Additional imports & plugins */
 @plugin "@tailwindcss/typography";
 
-/* Fonts */
+/* Additional fonts , these local fonts are added in /src/assets/fonts/ */
 @font-face {
     font-family: "Inter";
     font-style: normal;
@@ -35,84 +37,11 @@
     src: url("@/assets/fonts/JetBrainsMono.ttf") format("truetype-variations");
 }
 
-/* Theme settings */
+/* Dark mode support */
 @custom-variant dark (&:is(.dark *));
 
-:root {
-    --radius: 0.625rem;
-    --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
-    --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
-    --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
-    --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
-    --muted: oklch(0.97 0 0);
-    --muted-foreground: oklch(0.556 0 0);
-    --accent: oklch(0.97 0 0);
-    --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
-    --border: oklch(0.922 0 0);
-    --input: oklch(0.922 0 0);
-    --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
-    --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.97 0 0);
-    --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
-    --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.269 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.371 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
-    --border: oklch(1 0 0 / 10%);
-    --input: oklch(1 0 0 / 15%);
-    --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(1 0 0 / 10%);
-    --sidebar-ring: oklch(0.439 0 0);
-}
-
+/* config */
 @theme inline {
-    --font-inter: "Inter", var(--font-sans);
-    --font-roboto: "Roboto", var(--font-sans);
-    --font-open-sans: "OpenSans", var(--font-sans);
-    --font-jetbrains-mono: "JetBrainsMono", var(--font-mono);
-
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
     --radius-lg: var(--radius);
@@ -149,7 +78,83 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
+    /* additional css variables */
+    --font-inter: "Inter", var(--font-sans);
+    --font-roboto: "Roboto", var(--font-sans);
+    --font-open-sans: "OpenSans", var(--font-sans);
+    --font-jetbrains-mono: "JetBrainsMono", var(--font-mono);
+
     --breakpoint-xs: 24rem;
+}
+
+/* Custom light theme */
+:root {
+    --radius: 0.625rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
+}
+/* Custom dark theme */
+.dark {
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.269 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.371 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.439 0 0);
 }
 
 /* Base styles */
@@ -159,207 +164,5 @@
     }
     body {
         @apply bg-background text-foreground font-inter;
-    }
-    pre,
-    code {
-        @apply font-jetbrains-mono;
-    }
-}
-
-/* Firefox-specific fixes for text editor */
-@-moz-document url-prefix() {
-    .ProseMirror {
-        cursor: text !important;
-    }
-
-    .ProseMirror * {
-        user-select: text !important;
-        -moz-user-select: text !important;
-    }
-
-    .ProseMirror p {
-        line-height: 1.5 !important;
-    }
-}
-
-/* Editor typography styles */
-
-@utility tab-2 {
-    tab-size: 2;
-}
-
-@utility tab-4 {
-    tab-size: 4;
-}
-
-@utility tiptor-editor-styles {
-    @apply prose dark:prose-invert prose-neutral 2xl:prose-base font-sans leading-normal outline-none focus:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
-
-    :is(h1, h2, h3, h4, h5, h6) {
-        @apply whitespace-pre-wrap break-words pt-[3px] pb-[2px] font-semibold text-foreground/80 leading-[1.3];
-
-        strong {
-            @apply font-semibold;
-        }
-    }
-
-    h1 {
-        @apply mt-8 mb-1 text-3xl;
-    }
-
-    h2 {
-        @apply mt-[1.4rem] mb-[1px] text-2xl;
-    }
-
-    h3 {
-        @apply mt-4 mb-[1px] text-xl;
-    }
-
-    > p {
-        @apply my-[1px] whitespace-pre-wrap break-words pt-[3px] pb-[2px] text-foreground/80;
-    }
-
-    /* Link styles */
-    a {
-        @apply font-normal break-words cursor-pointer decoration-inherit text-foreground/60 border-border border-b no-underline;
-    }
-
-    hr {
-        @apply my-4 border-border;
-    }
-
-    /* Blockquote styles */
-    blockquote {
-        @apply mt-[8px] mb-[7px] font-normal;
-
-        p {
-            @apply pt-0 pb-0 not-italic before:pr-[2px] after:pl-[2px] before:content-[open-quote] after:content-[close-quote] text-foreground/80;
-        }
-    }
-
-    /* Strong styles */
-    strong {
-        @apply font-semibold text-foreground/90;
-    }
-
-    /*Inline code styles */
-    code {
-        @apply bg-secondary text-foreground/70 border border-border font-jetbrains-mono font-normal text-sm leading-[1.4] rounded-sm py-[0.1em] px-[0.2em] before:content-[none] after:content-[none];
-    }
-
-    /* Code block styles */
-    pre {
-        @apply flex my-1 grow text-left relative min-w-0 w-full bg-foreground/3 rounded-md p-5;
-
-        code {
-            @apply overflow-x-auto grow shrink text-left font-jetbrains-mono min-h-[1em] whitespace-pre bg-transparent border-none rounded-none py-3 px-0;
-        }
-    }
-
-    /* List styles */
-    ul,
-    ol {
-        @apply my-6 pl-6 first:mt-0 last:mb-0;
-
-        ul,
-        ol {
-            @apply my-0;
-        }
-    }
-
-    /* List item styles */
-    li {
-        @apply my-0 marker:text-foreground/80;
-
-        p {
-            @apply my-0;
-        }
-    }
-
-    /* Ordered list styles */
-    ol {
-        list-style: decimal;
-
-        ol {
-            list-style: lower-alpha;
-
-            ol {
-                list-style: lower-roman;
-            }
-        }
-    }
-
-    /* Unordered list styles */
-    ul:not([data-type="taskList"]) {
-        list-style: disc;
-
-        ul {
-            list-style: circle;
-
-            ul {
-                list-style: disc;
-            }
-        }
-    }
-
-    /* Task list styles */
-    ul[data-type="taskList"] {
-        @apply pl-0;
-
-        li {
-            @apply flex flex-row items-start;
-
-            &:not(:has(> p:first-child)) {
-                @apply list-none;
-            }
-
-            &[data-checked="true"] {
-                > div > p {
-                    @apply opacity-60 line-through;
-                }
-
-                > div > p span {
-                    @apply line-through;
-                }
-            }
-
-            label {
-                @apply relative pt-1 pr-2;
-
-                input[type="checkbox"] {
-                    @apply absolute opacity-0 w-0 h-0;
-                }
-
-                span {
-                    @apply block w-[1em] h-[1em] border border-border rounded relative cursor-pointer transition-all duration-100 bg-foreground/10;
-
-                    &::before {
-                        @apply absolute left-1/2 top-1/2 transform translate-x-[-50%] translate-y-[-50%] w-[0.75em] h-[0.75em] bg-background opacity-0;
-                        content: "";
-                        -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22currentColor%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M21.4142%204.58579C22.1953%205.36683%2022.1953%206.63317%2021.4142%207.41421L10.4142%2018.4142C9.63317%2019.1953%208.36684%2019.1953%207.58579%2018.4142L2.58579%2013.4142C1.80474%2012.6332%201.80474%2011.3668%202.58579%2010.5858C3.36683%209.80474%204.63317%209.80474%205.41421%2010.5858L9%2014.1716L18.5858%204.58579C19.3668%203.80474%2020.6332%203.80474%2021.4142%204.58579Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E")
-                            center/contain no-repeat;
-                        mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22currentColor%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M21.4142%204.58579C22.1953%205.36683%2022.1953%206.63317%2021.4142%207.41421L10.4142%2018.4142C9.63317%2019.1953%208.36684%2019.1953%207.58579%2018.4142L2.58579%2013.4142C1.80474%2012.6332%201.80474%2011.3668%202.58579%2010.5858C3.36683%209.80474%204.63317%209.80474%205.41421%2010.5858L9%2014.1716L18.5858%204.58579C19.3668%203.80474%2020.6332%203.80474%2021.4142%204.58579Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E")
-                            center/contain no-repeat;
-                    }
-                }
-
-                input[type="checkbox"]:checked + span {
-                    @apply border-border bg-foreground/90;
-
-                    &::before {
-                        @apply opacity-100;
-                    }
-                }
-            }
-
-            div {
-                @apply flex-1 min-w-0;
-            }
-        }
-    }
-
-    /* Placeholder styles */
-    .is-editor-empty:first-child::before {
-        @apply content-[attr(data-placeholder)] text-muted-foreground float-left h-0 pointer-events-none;
     }
 }
