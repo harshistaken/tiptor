@@ -121,7 +121,26 @@
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
+
+    --editor-highlight-color-green: #dcfce7;
+    --editor-highlight-color-green-contrast: #c7fad8;
+    --editor-highlight-color-blue: #e0f2fe;
+    --editor-highlight-color-blue-contrast: #ceeafd;
+    --editor-highlight-color-red: #ffe4e6;
+    --editor-highlight-color-red-contrast: #ffccd0;
+    --editor-highlight-color-purple: #f3e8ff;
+    --editor-highlight-color-purple-contrast: #e4ccff;
+    --editor-highlight-color-yellow: #fef9c3;
+    --editor-highlight-color-yellow-contrast: #fbe604;
+
+    /* Add corresponding text colors for light theme */
+    --editor-text-color-green: #166534; /* Dark Green */
+    --editor-text-color-blue: #1e40af; /* Dark Blue */
+    --editor-text-color-red: #991b1b; /* Dark Red */
+    --editor-text-color-purple: #6b21a8; /* Dark Purple */
+    --editor-text-color-yellow: #854d0e; /* Dark Yellow/Brown */
 }
+
 /* Custom dark theme */
 .dark {
     --background: oklch(0.145 0 0);
@@ -155,6 +174,24 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.439 0 0);
+
+    --editor-highlight-color-green: #509568;
+    --editor-highlight-color-green-contrast: #47855d;
+    --editor-highlight-color-blue: #6e92aa;
+    --editor-highlight-color-blue-contrast: #5e86a1;
+    --editor-highlight-color-red: #743e42;
+    --editor-highlight-color-red-contrast: #643539;
+    --editor-highlight-color-purple: #583e74;
+    --editor-highlight-color-purple-contrast: #4c3564;
+    --editor-highlight-color-yellow: #6b6524;
+    --editor-highlight-color-yellow-contrast: #58531e;
+
+    /* Add corresponding text colors for dark theme */
+    --editor-text-color-green: #bbf7d0; /* Light Green */
+    --editor-text-color-blue: #bfdbfe; /* Light Blue */
+    --editor-text-color-red: #fecaca; /* Light Red */
+    --editor-text-color-purple: #e9d5ff; /* Light Purple */
+    --editor-text-color-yellow: #fef08a; /* Light Yellow */
 }
 
 /* Base styles */
