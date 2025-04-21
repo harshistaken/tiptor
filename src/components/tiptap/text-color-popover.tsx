@@ -63,7 +63,7 @@ export const useTextColor = (editor: Editor | null) => {
     const getActiveTextColor = React.useCallback(() => {
         if (!editor) return null;
         if (!editor.isActive("textStyle")) return null;
-        const attrs = editor.getAttributes("TextColor");
+        const attrs = editor.getAttributes("textStyle");
         return attrs.color || null;
     }, [editor]);
 
