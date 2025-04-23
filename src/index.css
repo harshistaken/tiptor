@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@/styles/codeblock-theme.css";
 
 /* Additional imports & plugins */
 @plugin "@tailwindcss/typography";
