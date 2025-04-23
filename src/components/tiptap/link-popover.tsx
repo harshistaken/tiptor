@@ -123,7 +123,7 @@ export const LinkButton = React.forwardRef<
                 tabIndex={-1}
                 className={cn(
                     "size-8 cursor-pointer",
-                    isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                    isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                     className,
                 )}
                 disabled={isDisabled}
@@ -148,7 +148,7 @@ export const LinkButton = React.forwardRef<
                         tabIndex={-1}
                         className={cn(
                             "size-8 cursor-pointer",
-                            isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                            isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                             className,
                         )}
                         disabled={isDisabled}
@@ -327,6 +327,9 @@ export function LinkPopover({
             </PopoverTrigger>
 
             <PopoverContent
+                sideOffset={10}
+                align="start"
+                alignOffset={-14}
                 aria-label="Highlight colors"
                 className="w-full h-12 py-0 pl-2 flex items-center justify-center rounded-full "
             >

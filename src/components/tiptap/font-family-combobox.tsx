@@ -331,7 +331,7 @@ export function FontFamilyCombobox({
                                 className={cn(
                                     "w-44 justify-between font-normal cursor-pointer shrink-0 ",
                                     isAnyTextStyleActive &&
-                                        "bg-accent text-accent-foreground dark:bg-accent/50",
+                                        "bg-accent text-accent-foreground dark:bg-accent/30",
                                     className,
                                 )}
                                 disabled={isDisabled}
@@ -348,7 +348,7 @@ export function FontFamilyCombobox({
                 </Tooltip>
             </TooltipProvider>
 
-            <PopoverContent className="w-(--radix-popover-trigger-width) p-0">
+            <PopoverContent sideOffset={10} className="w-(--radix-popover-trigger-width) p-0">
                 <Command>
                     <CommandInput placeholder="Search font..." />
                     <CommandList>

@@ -386,7 +386,7 @@ export function ListDropdown({
                                 className={cn(
                                     "cursor-pointer shrink-0",
                                     isAnyActive &&
-                                        "bg-accent text-accent-foreground dark:bg-accent/50",
+                                        "bg-accent text-accent-foreground dark:bg-accent/30",
                                     className,
                                 )}
                                 {...props}
@@ -402,7 +402,7 @@ export function ListDropdown({
                 </Tooltip>
             </TooltipProvider>
 
-            <DropdownMenuContent className="w-52">
+            <DropdownMenuContent sideOffset={10} align="start" className="w-52">
                 <DropdownMenuLabel className="text-[9px] uppercase text-muted-foreground">
                     Lists
                 </DropdownMenuLabel>

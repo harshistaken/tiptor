@@ -382,7 +382,7 @@ export function TextStyleDropdown({
                                 className={cn(
                                     "cursor-pointer shrink-0",
                                     isAnyTextStyleActive &&
-                                        "bg-accent text-accent-foreground dark:bg-accent/50",
+                                        "bg-accent text-accent-foreground dark:bg-accent/30",
                                     className,
                                 )}
                                 disabled={isDisabled}
@@ -399,7 +399,7 @@ export function TextStyleDropdown({
                 </Tooltip>
             </TooltipProvider>
 
-            <DropdownMenuContent className="w-52">
+            <DropdownMenuContent sideOffset={10} align="start" className="w-52">
                 <DropdownMenuLabel className="text-[9px] uppercase text-muted-foreground">
                     Text style
                 </DropdownMenuLabel>

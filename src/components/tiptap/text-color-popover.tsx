@@ -111,7 +111,7 @@ export const TextColorButton = React.forwardRef<
                 tabIndex={-1}
                 className={cn(
                     "size-8 cursor-pointer",
-                    isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                    isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                     className,
                 )}
                 disabled={isDisabled}
@@ -120,7 +120,7 @@ export const TextColorButton = React.forwardRef<
             >
                 {children || (
                     <div
-                        className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                        className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
                         style={
                             {
                                 color: activeColor || undefined,
@@ -148,7 +148,7 @@ export const TextColorButton = React.forwardRef<
                         tabIndex={-1}
                         className={cn(
                             "size-8 cursor-pointer",
-                            isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                            isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                             className,
                         )}
                         disabled={isDisabled}
@@ -157,7 +157,7 @@ export const TextColorButton = React.forwardRef<
                     >
                         {children || (
                             <div
-                                className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                                className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
                                 style={
                                     {
                                         color: activeColor || undefined,
@@ -224,14 +224,14 @@ export function TextColorContent({
                         className={cn(
                             "size-8 cursor-pointer",
                             (activeColor === color.value || selectedIndex === index) &&
-                                "bg-accent text-accent-foreground dark:bg-accent/50",
+                                "bg-accent text-accent-foreground dark:bg-accent/30",
                         )}
                         aria-label={`${color.label} text color`}
                         tabIndex={index === selectedIndex ? 0 : -1}
                         onClick={() => toggleTextColor(color.value)}
                     >
                         <div
-                            className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                            className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
                             style={
                                 {
                                     color: color.value,
@@ -257,7 +257,7 @@ export function TextColorContent({
                     className={cn(
                         "size-8 cursor-pointer",
                         selectedIndex === colors.length &&
-                            "bg-accent text-accent-foreground dark:bg-accent/50",
+                            "bg-accent text-accent-foreground dark:bg-accent/30",
                     )}
                     onClick={() => toggleTextColor("none")}
                     aria-label="Remove text color"
@@ -347,6 +347,9 @@ export function TextColorPopover({
             </PopoverTrigger>
 
             <PopoverContent
+                sideOffset={10}
+                align="start"
+                alignOffset={-14}
                 aria-label="Highlight colors"
                 className="w-full h-10 py-0 flex items-center justify-center rounded-full "
             >

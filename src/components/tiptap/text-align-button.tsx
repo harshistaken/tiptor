@@ -225,7 +225,7 @@ export const TextAlignButton = React.forwardRef<HTMLButtonElement, TextAlignButt
                     tabIndex={-1}
                     className={cn(
                         "size-8 cursor-pointer",
-                        isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                        isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                         className,
                     )}
                     disabled={isDisabled}
@@ -257,7 +257,7 @@ export const TextAlignButton = React.forwardRef<HTMLButtonElement, TextAlignButt
                             tabIndex={-1}
                             className={cn(
                                 "size-8 cursor-pointer",
-                                isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                                isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                                 className,
                             )}
                             disabled={isDisabled}

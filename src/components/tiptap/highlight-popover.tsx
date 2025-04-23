@@ -112,7 +112,7 @@ export const HighlighterButton = React.forwardRef<
                 tabIndex={-1}
                 className={cn(
                     "size-8 cursor-pointer",
-                    isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                    isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                     className,
                 )}
                 disabled={isDisabled}
@@ -142,7 +142,7 @@ export const HighlighterButton = React.forwardRef<
                         tabIndex={-1}
                         className={cn(
                             "size-8 cursor-pointer",
-                            isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
+                            isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                             className,
                         )}
                         disabled={isDisabled}
@@ -214,7 +214,7 @@ export function HighlightContent({
                         className={cn(
                             "size-8 cursor-pointer",
                             (activeColor === color.value || selectedIndex === index) &&
-                                "bg-accent text-accent-foreground dark:bg-accent/50",
+                                "bg-accent text-accent-foreground dark:bg-accent/30",
                         )}
                         aria-label={`${color.label} highlight color`}
                         tabIndex={index === selectedIndex ? 0 : -1}
@@ -245,7 +245,7 @@ export function HighlightContent({
                     className={cn(
                         "size-8 cursor-pointer",
                         selectedIndex === colors.length &&
-                            "bg-accent text-accent-foreground dark:bg-accent/50",
+                            "bg-accent text-accent-foreground dark:bg-accent/30",
                     )}
                     onClick={() => toggleHighlight("none")}
                     aria-label="Remove highlight"
@@ -335,6 +335,9 @@ export function HighlightPopover({
             </PopoverTrigger>
 
             <PopoverContent
+                sideOffset={10}
+                align="start"
+                alignOffset={-14}
                 aria-label="Highlight colors"
                 className="w-full h-10 py-0 flex items-center justify-center rounded-full "
             >

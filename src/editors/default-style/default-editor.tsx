@@ -22,6 +22,9 @@ import { Typography } from "@tiptap/extension-typography";
 import { Selection } from "@/custom-extensions/selection-extension";
 import { TrailingNode } from "@/custom-extensions/trailing-node-extension";
 
+// --- Components ---
+import { DefaultEditorToolbar } from "./default-editor-toolbar";
+
 const lowlight = createLowlight(all);
 
 interface DefaultEditorProps {
@@ -152,7 +155,9 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
         },
     });
 
-    return <EditorContext.Provider value={{ editor }}>
-        
-    </EditorContext.Provider>;
+    return (
+        <EditorContext.Provider value={{ editor }}>
+            <DefaultEditorToolbar />
+        </EditorContext.Provider>
+    );
 }
