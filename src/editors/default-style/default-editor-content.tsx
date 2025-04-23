@@ -1,14 +1,21 @@
+import { cn } from "@/lib/utils";
 import { type Editor, EditorContent } from "@tiptap/react";
 
-export function DefaultEditorContent({ editor }: { editor: Editor | null }) {
+export function DefaultEditorContent({
+    editor,
+    className,
+}: {
+    editor: Editor | null;
+    className?: string;
+}) {
     if (!editor) return null;
 
     return (
-        <div className="w-full h-full flex-1 overflow-auto">
+        <div className={cn("w-full h-full flex-1 overflow-auto", className)}>
             <EditorContent
                 editor={editor}
                 role="presentation"
-                className="h-full min-h-full max-w-3xl w-full mx-auto my-0"
+                className="w-full max-w-3xl h-full min-h-full my-0 mx-auto"
             />
         </div>
     );

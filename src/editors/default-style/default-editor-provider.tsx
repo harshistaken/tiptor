@@ -1,4 +1,8 @@
+import React from "react";
+import { cn } from "@/lib/utils";
 import { EditorContext, useEditor } from "@tiptap/react";
+
+// --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
 import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
 import { all, createLowlight } from "lowlight";
@@ -18,24 +22,29 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 
+const lowlight = createLowlight(all);
+
 // --- Custom Extensions ---
 import { Selection } from "@/custom-extensions/selection-extension";
 import { TrailingNode } from "@/custom-extensions/trailing-node-extension";
 
-// --- Components ---
-import { DefaultEditorToolbar } from "./default-editor-toolbar";
-import { DefaultEditorContent } from "./default-editor-content";
-import { cn } from "@/lib/utils";
-
-const lowlight = createLowlight(all);
-
-interface DefaultEditorProps {
+interface DefaultEditorProviderProps {
     limit?: number;
-    content: string;
+    content?: string;
     editable?: boolean;
+    onContentChange?: (content: string) => void;
+    editorClassName?: string;
+    children: React.ReactNode;
 }
 
-export function DefaultEditor({ limit = 5000, content = "", editable = true }: DefaultEditorProps) {
+export function DefaultEditorProvider({
+    limit = 5000,
+    content = "",
+    editable = true,
+    onContentChange,
+    editorClassName,
+    children,
+}: DefaultEditorProviderProps) {
     const editor = useEditor({
         extensions: [
             // Add your desired extensions here
@@ -44,6 +53,7 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
                 heading: {
                     levels: [1, 2, 3],
                 },
+                codeBlock: false,
             }),
             CodeBlockLowlight.configure({
                 lowlight,
@@ -122,8 +132,6 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
             }),
             Typography,
             // Custom Extensions
-
-            Link,
             Selection,
             TrailingNode,
         ],
@@ -132,19 +140,28 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
         immediatelyRender: false,
         editorProps: {
             attributes: {
-                autocomplete: "off",
-                autocorrect: "off",
-                autocapitalize: "off",
-                "aria-label": "Main content area, start typing to enter text.",
-                class: cn("w-full min-w-full p-12 max-sm:px-4 max-sm:py-6", "editor-styles"),
+                autocomplete: "false",
+                autocorrect: "false",
+                autocapitalize: "false",
+                spellCheck: "false",
+                class: cn(
+                    "w-full min-w-full p-12 max-sm:px-4 max-sm:py-6",
+                    "editor-styles",
+                    editorClassName,
+                ),
             },
+        },
+        onUpdate({ editor }) {
+            onContentChange?.(editor.getHTML());
         },
     });
 
-    return (
-        <EditorContext.Provider value={{ editor }}>
-            <DefaultEditorToolbar />
-            <DefaultEditorContent editor={editor} />
-        </EditorContext.Provider>
-    );
+    // Update content when it changes externally
+    React.useEffect(() => {
+        if (editor && content !== editor.getHTML()) {
+            editor.commands.setContent(content, false);
+        }
+    }, [editor, content]);
+
+    return <EditorContext.Provider value={{ editor }}>{children}</EditorContext.Provider>;
 }

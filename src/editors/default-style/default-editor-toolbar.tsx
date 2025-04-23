@@ -9,10 +9,11 @@ import { TextColorPopover } from "@/components/tiptap/text-color-popover";
 import { TextStyleDropdown } from "@/components/tiptap/text-style-dropdown";
 import UndoRedoButton from "@/components/tiptap/undo-redo-button";
 import { Toolbar, ToolbarGroup, ToolbarSeparator } from "@/components/tiptap/toolbar";
+import { cn } from "@/lib/utils";
 
-export function DefaultEditorToolbar() {
+export function DefaultEditorToolbar({ className }: { className?: string }) {
     return (
-        <Toolbar className="h-11 w-full">
+        <Toolbar className={cn("h-11 w-full", className)}>
             <div className="w-full h-full flex-1"></div>
             <ToolbarGroup>
                 <UndoRedoButton action="undo" />
