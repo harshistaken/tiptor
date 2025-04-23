@@ -243,7 +243,7 @@ export const NodeButton = React.forwardRef<HTMLButtonElement, NodeButtonProps>(
         return (
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger asChild>
                         <Button
                             type="button"
                             variant="ghost"

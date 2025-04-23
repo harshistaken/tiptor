@@ -373,7 +373,7 @@ export function ListDropdown({
         <DropdownMenu open={isOpen} onOpenChange={handleOnOpenChange}>
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger asChild>
                         <DropdownMenuTrigger asChild>
                             <Button
                                 type="button"

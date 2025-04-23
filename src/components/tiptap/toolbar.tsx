@@ -3,6 +3,15 @@ import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform, transform, useVelocity } from "motion/react";
 
+type BaseProps = React.HTMLAttributes<HTMLDivElement>;
+
+interface ToolbarProps extends BaseProps {
+    containerClassName?: string;
+    innerContainerClassName?: string;
+    leftOverlayClassName?: string;
+    rightOverlayClassName?: string;
+}
+
 const mergeRefs = <T,>(
     refs: Array<React.RefObject<T> | React.Ref<T> | null | undefined>,
 ): React.RefCallback<T> => {
@@ -208,8 +217,18 @@ const useSeparatorVisibility = (ref: React.RefObject<HTMLDivElement | null>): bo
     return isVisible;
 };
 
-export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-    ({ children, className, ...props }, ref) => {
+export const Toolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(
+    (
+        {
+            children,
+            containerClassName,
+            innerContainerClassName,
+            leftOverlayClassName,
+            rightOverlayClassName,
+            ...props
+        },
+        ref,
+    ) => {
         const containerRef = React.useRef<HTMLDivElement>(null);
         const innerContainerRef = React.useRef<HTMLDivElement>(null); // Ref for the inner scrollable div
 
@@ -233,12 +252,11 @@ export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
                 role="toolbar"
                 aria-label="toolbar"
                 className={cn(
-                    "relative",
-                    "sticky top-0 max-[480px]:fixed max-[480px]:bottom-0 max-[480px]:top-auto z-10",
+                    "relative z-10",
                     "w-full min-h-11 max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
                     "border-y border-border/50 sm:border-t-0 max-[480px]:border-b-0",
                     "bg-background/80 backdrop-blur-sm",
-                    className,
+                    containerClassName,
                 )}
                 {...props}
             >
@@ -250,6 +268,7 @@ export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
                         "flex justify-start items-center gap-2 flex-nowrap",
                         "px-2 max-[480px]:pb-[env(safe-area-inset-bottom)]",
                         "overflow-x-auto [&::-webkit-scrollbar]:hidden",
+                        innerContainerClassName,
                     )}
                     style={{
                         overscrollBehaviorX: "contain",
@@ -264,7 +283,10 @@ export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
                 {/* Overlays remain relative to the outer container */}
                 {/* Left Fade Overlay */}
                 <motion.div
-                    className="absolute left-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-r-from-40% backdrop-blur-xl"
+                    className={cn(
+                        "absolute left-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-r-from-40% backdrop-blur-xl",
+                        leftOverlayClassName,
+                    )}
                     style={{
                         opacity: scrollingOpacity,
                     }}
@@ -272,7 +294,10 @@ export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTM
                 />
                 {/* Right Fade Overlay */}
                 <motion.div
-                    className="absolute right-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-l-from-40% backdrop-blur-xl"
+                    className={cn(
+                        "absolute right-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-l-from-40% backdrop-blur-xl",
+                        rightOverlayClassName,
+                    )}
                     style={{
                         opacity: scrollingOpacity,
                     }}

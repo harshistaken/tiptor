@@ -138,7 +138,7 @@ export const TextColorButton = React.forwardRef<
     return (
         <TooltipProvider>
             <Tooltip>
-                <TooltipTrigger>
+                <TooltipTrigger asChild>
                     <Button
                         type="button"
                         variant="ghost"

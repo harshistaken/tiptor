@@ -202,7 +202,7 @@ export const UndoRedoButton = React.forwardRef<HTMLButtonElement, UndoRedoButton
         return (
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger asChild>
                         <Button
                             type="button"
                             variant="ghost"

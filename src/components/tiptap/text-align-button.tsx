@@ -246,7 +246,7 @@ export const TextAlignButton = React.forwardRef<HTMLButtonElement, TextAlignButt
         return (
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger asChild>
                         <Button
                             type="button"
                             variant="ghost"

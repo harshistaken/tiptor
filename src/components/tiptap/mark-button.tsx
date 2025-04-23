@@ -229,7 +229,7 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
         return (
             <TooltipProvider>
                 <Tooltip>
-                    <TooltipTrigger>
+                    <TooltipTrigger asChild>
                         <Button
                             type="button"
                             variant="ghost"
