@@ -24,6 +24,8 @@ import { TrailingNode } from "@/custom-extensions/trailing-node-extension";
 
 // --- Components ---
 import { DefaultEditorToolbar } from "./default-editor-toolbar";
+import { DefaultEditorContent } from "./default-editor-content";
+import { cn } from "@/lib/utils";
 
 const lowlight = createLowlight(all);
 
@@ -111,23 +113,6 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
                                 return "Heading"; // Fallback for other levels if any
                         }
                     }
-
-                    if (node.type.name === "paragraph") {
-                        return "Write, press '/' for commands";
-                    }
-
-                    if (node.type.name === "orderedList" || node.type.name === "bulletList") {
-                        return "List";
-                    }
-
-                    if (node.type.name === "taskList") {
-                        return "To-do";
-                    }
-
-                    if (node.type.name === "blockquote") {
-                        return "Empty quote";
-                    }
-
                     // Default placeholder for other node types or when the first node isn't one of the above
                     return "Write, press '/' for commands";
                 },
@@ -151,6 +136,7 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
                 autocorrect: "off",
                 autocapitalize: "off",
                 "aria-label": "Main content area, start typing to enter text.",
+                class: cn("w-full min-w-full p-12 max-sm:px-4 max-sm:py-6", "editor-styles"),
             },
         },
     });
@@ -158,6 +144,7 @@ export function DefaultEditor({ limit = 5000, content = "", editable = true }: D
     return (
         <EditorContext.Provider value={{ editor }}>
             <DefaultEditorToolbar />
+            <DefaultEditorContent editor={editor} />
         </EditorContext.Provider>
     );
 }

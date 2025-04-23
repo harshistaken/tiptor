@@ -8,7 +8,7 @@ export function DefaultEditorContent({ editor }: { editor: Editor | null }) {
             <EditorContent
                 editor={editor}
                 role="presentation"
-                className="h-full min-h-full max-w-2xl w-full mx-auto my-0"
+                className="h-full min-h-full max-w-3xl w-full mx-auto my-0"
             />
         </div>
     );
