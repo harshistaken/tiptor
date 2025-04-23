@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
+import { motion, useScroll, useTransform, transform, useVelocity } from "motion/react";
 
 const mergeRefs = <T,>(
     refs: Array<React.RefObject<T> | React.Ref<T> | null | undefined>,
@@ -209,31 +210,74 @@ const useSeparatorVisibility = (ref: React.RefObject<HTMLDivElement | null>): bo
 
 export const Toolbar = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
     ({ children, className, ...props }, ref) => {
-        const toolbarRef = React.useRef<HTMLDivElement>(null);
-        const isVisible = useToolbarVisibility(toolbarRef);
+        const containerRef = React.useRef<HTMLDivElement>(null);
+        const innerContainerRef = React.useRef<HTMLDivElement>(null); // Ref for the inner scrollable div
 
-        useToolbarKeyboardNav(toolbarRef);
+        const isVisible = useToolbarVisibility(innerContainerRef);
+
+        const { scrollX } = useScroll({ container: innerContainerRef });
+        const scrollXVelocity = useVelocity(scrollX);
+
+        const scrollingOpacity = useTransform(scrollXVelocity, (v) => {
+            return transform(Math.abs(v), [0, 50], [0, 1], { clamp: true });
+        });
+
+        useToolbarKeyboardNav(innerContainerRef);
 
         if (!isVisible) return null;
 
         return (
+            // Outer container
             <div
-                ref={mergeRefs([toolbarRef, ref])}
+                ref={mergeRefs([containerRef, ref])} // Outer container ref
                 role="toolbar"
                 aria-label="toolbar"
                 className={cn(
-                    "w-full h-full flex items-center justify-start min-[1038px]:justify-center gap-2 z-10 px-2 overflow-x-auto [&::-webkit-scrollbar]:hidden border-b border-border/50",
+                    "relative",
+                    "sticky top-0 max-[480px]:fixed max-[480px]:bottom-0 max-[480px]:top-auto z-10",
+                    "w-full min-h-11 max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
+                    "border-y border-border/50 sm:border-t-0 max-[480px]:border-b-0",
+                    "bg-background/80 backdrop-blur-sm",
                     className,
                 )}
-                style={{
-                    overscrollBehaviorX: "contain",
-                    WebkitOverflowScrolling: "touch",
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                }}
                 {...props}
             >
-                {children}
+                {/* Inner scrollable container */}
+                <div
+                    ref={innerContainerRef} // Inner container ref passed to hooks
+                    className={cn(
+                        "h-full w-full",
+                        "flex justify-start items-center gap-2 flex-nowrap",
+                        "px-2 max-[480px]:pb-[env(safe-area-inset-bottom)]",
+                        "overflow-x-auto [&::-webkit-scrollbar]:hidden",
+                    )}
+                    style={{
+                        overscrollBehaviorX: "contain",
+                        WebkitOverflowScrolling: "touch",
+                        scrollbarWidth: "none",
+                        msOverflowStyle: "none",
+                    }}
+                >
+                    {children}
+                </div>
+
+                {/* Overlays remain relative to the outer container */}
+                {/* Left Fade Overlay */}
+                <motion.div
+                    className="absolute left-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-r-from-40% backdrop-blur-xl"
+                    style={{
+                        opacity: scrollingOpacity,
+                    }}
+                    aria-hidden="true"
+                />
+                {/* Right Fade Overlay */}
+                <motion.div
+                    className="absolute right-0 top-0 bottom-0 max-[480px]:bottom-[env(safe-area-inset-bottom)] w-12 pointer-events-none z-20 mask-l-from-40% backdrop-blur-xl"
+                    style={{
+                        opacity: scrollingOpacity,
+                    }}
+                    aria-hidden="true"
+                />
             </div>
         );
     },
@@ -252,7 +296,10 @@ export const ToolbarGroup = React.forwardRef<HTMLDivElement, React.HTMLAttribute
             <div
                 ref={mergeRefs([groupRef, ref])}
                 role="toolbar-group"
-                className={cn("h-full flex items-center justify-center gap-0.5", className)}
+                className={cn(
+                    "h-full flex items-center justify-center gap-0.5 empty:hidden empty:[&>[role=toolbar-separator]]:hidden",
+                    className,
+                )}
                 {...props}
             >
                 {children}
