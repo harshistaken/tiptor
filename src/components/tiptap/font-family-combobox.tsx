@@ -290,7 +290,10 @@ export function FontFamilyCombobox({
 
     // Use the corrected logic for isDisabled
     const isDisabled = !canApplyAnyFontFamily();
-    const isAnyTextStyleActive = editor?.isActive("textStyle") ?? false;
+    // Check if *any* text style is active
+    // const isAnyTextStyleActive = editor?.isActive("textStyle") ?? false;
+    // TODO: the below line is temporarily set to true to show the button with accent background, original one is above commented
+    const isAnyTextStyleActive = editor?.isActive("textStyle") || true;
 
     const show = React.useMemo(() => {
         if (!textStylesInSchema) {
@@ -340,7 +343,7 @@ export function FontFamilyCombobox({
                         </PopoverTrigger>
                     </TooltipTrigger>
                     <TooltipContent className="flex flex-col justify-center items-center">
-                        <span>Font Family</span>
+                        <span>Font family</span>
                     </TooltipContent>
                 </Tooltip>
             </TooltipProvider>

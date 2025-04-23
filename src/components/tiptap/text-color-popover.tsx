@@ -120,7 +120,7 @@ export const TextColorButton = React.forwardRef<
             >
                 {children || (
                     <div
-                        className="size-4 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                        className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
                         style={
                             {
                                 color: activeColor || undefined,
@@ -157,7 +157,7 @@ export const TextColorButton = React.forwardRef<
                     >
                         {children || (
                             <div
-                                className="size-4 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                                className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
                                 style={
                                     {
                                         color: activeColor || undefined,
@@ -171,7 +171,7 @@ export const TextColorButton = React.forwardRef<
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent className="flex flex-col justify-center items-center">
-                    <span>Text Color</span>
+                    <span>Text color</span>
                 </TooltipContent>
             </Tooltip>
         </TooltipProvider>
@@ -231,7 +231,7 @@ export function TextColorContent({
                         onClick={() => toggleTextColor(color.value)}
                     >
                         <div
-                            className="size-4 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
+                            className="size-5 flex items-center justify-center rounded border-2 border-foreground text-foreground pointer-events-none shrink-0 font-medium"
                             style={
                                 {
                                     color: color.value,
@@ -338,6 +338,7 @@ export function TextColorPopover({
         <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
                 <TextColorButton
+                    editor={providedEditor}
                     isDisabled={isDisabled}
                     isActive={isActive}
                     aria-pressed={isActive}
@@ -347,7 +348,7 @@ export function TextColorPopover({
 
             <PopoverContent
                 aria-label="Highlight colors"
-                className="w-full h-12 py-0 flex items-center justify-center rounded-full "
+                className="w-full h-10 py-0 flex items-center justify-center rounded-full "
             >
                 <TextColorContent
                     editor={editor}

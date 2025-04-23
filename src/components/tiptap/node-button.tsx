@@ -53,7 +53,7 @@ export const nodeShortcutKeys: Partial<Record<NodeType, string>> = {
 };
 
 export const nodeLabels: Record<NodeType, string> = {
-    codeBlock: "Code Block",
+    codeBlock: "Code block",
     blockquote: "Blockquote",
     horizontalRule: "Divider",
 };

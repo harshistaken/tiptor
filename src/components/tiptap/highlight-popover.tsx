@@ -90,12 +90,17 @@ export const useHighlighter = (editor: Editor | null) => {
 export const HighlighterButton = React.forwardRef<
     HTMLButtonElement,
     React.ComponentProps<typeof Button> & {
+        editor?: Editor | null;
         showTooltip?: boolean;
         isActive: boolean;
         isDisabled: boolean;
         children?: React.ReactNode;
     }
->(({ className, children, showTooltip = true, isActive, isDisabled, ...props }, ref) => {
+>(({ className, children, showTooltip = true, isActive, isDisabled, editor, ...props }, ref) => {
+    const currentEditor = useTiptapEditor(editor);
+    const { getActiveColor } = useHighlighter(currentEditor);
+    const activeColor = getActiveColor();
+
     if (!showTooltip) {
         return (
             <Button
@@ -113,6 +118,11 @@ export const HighlighterButton = React.forwardRef<
                 disabled={isDisabled}
                 ref={ref}
                 {...props}
+                style={
+                    {
+                        backgroundColor: activeColor || undefined,
+                    } as React.CSSProperties
+                }
             >
                 {children || <HighlighterIcon className="size-4 pointer-events-none shrink-0" />}
             </Button>
@@ -138,6 +148,11 @@ export const HighlighterButton = React.forwardRef<
                         disabled={isDisabled}
                         ref={ref}
                         {...props}
+                        style={
+                            {
+                                backgroundColor: activeColor || undefined,
+                            } as React.CSSProperties
+                        }
                     >
                         {children || (
                             <HighlighterIcon className="size-4 pointer-events-none shrink-0" />
@@ -311,6 +326,7 @@ export function HighlightPopover({
         <Popover open={isOpen} onOpenChange={setIsOpen}>
             <PopoverTrigger asChild>
                 <HighlighterButton
+                    editor={providedEditor}
                     isDisabled={isDisabled}
                     isActive={isActive}
                     aria-pressed={isActive}
@@ -320,7 +336,7 @@ export function HighlightPopover({
 
             <PopoverContent
                 aria-label="Highlight colors"
-                className="w-full h-12 py-0 flex items-center justify-center rounded-full "
+                className="w-full h-10 py-0 flex items-center justify-center rounded-full "
             >
                 <HighlightContent
                     editor={editor}
