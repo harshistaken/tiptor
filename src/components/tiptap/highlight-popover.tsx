@@ -111,7 +111,7 @@ export const HighlighterButton = React.forwardRef<
                 aria-label="Highlight text"
                 tabIndex={-1}
                 className={cn(
-                    "size-8 cursor-pointer",
+                    "size-8 cursor-pointer text-foreground/70",
                     isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                     className,
                 )}
@@ -141,7 +141,7 @@ export const HighlighterButton = React.forwardRef<
                         aria-label="Highlight text"
                         tabIndex={-1}
                         className={cn(
-                            "size-8 cursor-pointer",
+                            "size-8 cursor-pointer text-foreground/70",
                             isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                             className,
                         )}
@@ -212,7 +212,7 @@ export function HighlightContent({
                         size="icon"
                         role="menuitem"
                         className={cn(
-                            "size-8 cursor-pointer",
+                            "size-8 cursor-pointer text-foreground/70",
                             (activeColor === color.value || selectedIndex === index) &&
                                 "bg-accent text-accent-foreground dark:bg-accent/30",
                         )}
@@ -243,7 +243,7 @@ export function HighlightContent({
                     variant="ghost"
                     size="icon"
                     className={cn(
-                        "size-8 cursor-pointer",
+                        "size-8 cursor-pointer text-foreground/70",
                         selectedIndex === colors.length &&
                             "bg-accent text-accent-foreground dark:bg-accent/30",
                     )}

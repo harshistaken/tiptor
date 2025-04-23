@@ -380,9 +380,9 @@ export function TextStyleDropdown({
                                 aria-pressed={isAnyTextStyleActive}
                                 tabIndex={-1}
                                 className={cn(
-                                    "cursor-pointer shrink-0",
+                                    "cursor-pointer shrink-0 text-foreground/70",
                                     isAnyTextStyleActive &&
-                                        "bg-accent text-accent-foreground dark:bg-accent/30",
+                                        "bg-accent text-foreground/70 dark:bg-accent/30",
                                     className,
                                 )}
                                 disabled={isDisabled}

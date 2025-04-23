@@ -110,7 +110,7 @@ export const TextColorButton = React.forwardRef<
                 aria-label="Text Color"
                 tabIndex={-1}
                 className={cn(
-                    "size-8 cursor-pointer",
+                    "size-8 cursor-pointer text-foreground/70",
                     isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                     className,
                 )}
@@ -120,7 +120,7 @@ export const TextColorButton = React.forwardRef<
             >
                 {children || (
                     <div
-                        className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
+                        className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground/70 text-foreground/70 pointer-events-none shrink-0 font-normal"
                         style={
                             {
                                 color: activeColor || undefined,
@@ -147,7 +147,7 @@ export const TextColorButton = React.forwardRef<
                         aria-label="Text Color"
                         tabIndex={-1}
                         className={cn(
-                            "size-8 cursor-pointer",
+                            "size-8 cursor-pointer text-foreground/70",
                             isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                             className,
                         )}
@@ -157,7 +157,7 @@ export const TextColorButton = React.forwardRef<
                     >
                         {children || (
                             <div
-                                className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
+                                className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground/70 text-foreground/70 pointer-events-none shrink-0 font-normal"
                                 style={
                                     {
                                         color: activeColor || undefined,
@@ -222,7 +222,7 @@ export function TextColorContent({
                         size="icon"
                         role="menuitem"
                         className={cn(
-                            "size-8 cursor-pointer",
+                            "size-8 cursor-pointer text-foreground/70",
                             (activeColor === color.value || selectedIndex === index) &&
                                 "bg-accent text-accent-foreground dark:bg-accent/30",
                         )}
@@ -231,7 +231,7 @@ export function TextColorContent({
                         onClick={() => toggleTextColor(color.value)}
                     >
                         <div
-                            className="size-5 flex items-center justify-center rounded border-[1.5px] border-foreground text-foreground pointer-events-none shrink-0 font-normal"
+                            className="size-5 flex items-center justify-center rounded border-[1.5px] pointer-events-none shrink-0 font-normal"
                             style={
                                 {
                                     color: color.value,
@@ -255,7 +255,7 @@ export function TextColorContent({
                     variant="ghost"
                     size="icon"
                     className={cn(
-                        "size-8 cursor-pointer",
+                        "size-8 cursor-pointer text-foreground/70",
                         selectedIndex === colors.length &&
                             "bg-accent text-accent-foreground dark:bg-accent/30",
                     )}

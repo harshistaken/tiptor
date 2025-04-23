@@ -207,7 +207,7 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
                     aria-pressed={isActive}
                     tabIndex={-1}
                     className={cn(
-                        "size-8 cursor-pointer",
+                        "size-8 cursor-pointer text-foreground/70",
                         isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                         className,
                     )}
@@ -239,7 +239,7 @@ export const MarkButton = React.forwardRef<HTMLButtonElement, MarkButtonProps>(
                             aria-pressed={isActive}
                             tabIndex={-1}
                             className={cn(
-                                "size-8 cursor-pointer",
+                                "size-8 cursor-pointer text-foreground/70",
                                 isActive && "bg-accent text-accent-foreground dark:bg-accent/30",
                                 className,
                             )}

@@ -384,9 +384,8 @@ export function ListDropdown({
                                 aria-pressed={isAnyActive}
                                 tabIndex={-1}
                                 className={cn(
-                                    "cursor-pointer shrink-0",
-                                    isAnyActive &&
-                                        "bg-accent text-accent-foreground dark:bg-accent/30",
+                                    "cursor-pointer shrink-0 text-foreground/70",
+                                    isAnyActive && "bg-accent text-foreground/70 dark:bg-accent/30",
                                     className,
                                 )}
                                 {...props}
