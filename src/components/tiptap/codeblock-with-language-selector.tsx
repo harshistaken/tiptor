@@ -9,6 +9,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import React from "react";
+import { cn } from "@/lib/utils";
 
 export function CodeBlockWithLanguageSelector({
     node: {
@@ -28,7 +29,10 @@ export function CodeBlockWithLanguageSelector({
             >
                 <SelectTrigger
                     size="sm"
-                    className="absolute z-20 w-32 data-[size=sm]:h-7 top-2 right-2 bg-background cursor-pointer text-xs [&_svg]:size-3"
+                    className={cn(
+                        "absolute z-20 data-[size=sm]:h-6 top-2 right-2 cursor-pointer text-xs [&_svg]:size-3",
+                        "border-none py-1 hover:bg-foreground/5 shadow-none rounded-[calc(var(--radius)-6px)]",
+                    )}
                 >
                     <SelectValue placeholder="Language" />
                 </SelectTrigger>

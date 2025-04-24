@@ -289,7 +289,7 @@
         @apply flex my-1 grow text-left relative min-w-0 w-full bg-foreground/5 rounded-md p-5;
 
         code {
-            @apply overflow-x-auto grow shrink text-left font-jetbrains-mono min-h-[1em] whitespace-pre bg-transparent border-none rounded-none py-3;
+            @apply overflow-x-auto grow shrink text-left font-jetbrains-mono min-h-[1em] whitespace-pre bg-transparent border-none rounded-none py-4 pt-5;
         }
     }
 
