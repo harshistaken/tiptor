@@ -1,13 +1,16 @@
+import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 import { cn } from "@/lib/utils";
 import { type Editor, EditorContent } from "@tiptap/react";
 
 export function DefaultEditorContent({
-    editor,
+    editor: providedEditor,
     className,
 }: {
-    editor: Editor | null;
+    editor?: Editor | null;
     className?: string;
 }) {
+    const editor = useTiptapEditor(providedEditor);
+
     if (!editor) return null;
 
     return (
@@ -15,7 +18,7 @@ export function DefaultEditorContent({
             <EditorContent
                 editor={editor}
                 role="presentation"
-                className="w-full max-w-3xl h-full min-h-full my-0 mx-auto"
+                className="w-full max-w-5xl h-full min-h-full my-0 mx-auto"
             />
         </div>
     );

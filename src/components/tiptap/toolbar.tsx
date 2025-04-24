@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform, transform, useVelocity } from "motion/
 type BaseProps = React.HTMLAttributes<HTMLDivElement>;
 
 interface ToolbarProps extends BaseProps {
-    containerClassName?: string;
     innerContainerClassName?: string;
     leftOverlayClassName?: string;
     rightOverlayClassName?: string;
@@ -221,10 +220,10 @@ export const Toolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(
     (
         {
             children,
-            containerClassName,
             innerContainerClassName,
             leftOverlayClassName,
             rightOverlayClassName,
+            className,
             ...props
         },
         ref,
@@ -256,7 +255,7 @@ export const Toolbar = React.forwardRef<HTMLDivElement, ToolbarProps>(
                     "w-full min-h-11 max-[480px]:h-[calc(2.75rem+env(safe-area-inset-bottom,0px))]",
                     "border-y border-border/50 sm:border-t-0 max-[480px]:border-b-0",
                     "bg-background/80 backdrop-blur-sm",
-                    containerClassName,
+                    className,
                 )}
                 {...props}
             >
