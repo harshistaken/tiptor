@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { EditorContext, useEditor } from "@tiptap/react";
+import { EditorContext, ReactNodeViewRenderer, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
@@ -27,6 +27,7 @@ const lowlight = createLowlight(all);
 // --- Custom Extensions ---
 import { Selection } from "@/custom-extensions/selection-extension";
 import { TrailingNode } from "@/custom-extensions/trailing-node-extension";
+import { CodeBlockWithLanguageSelector } from "@/components/tiptap/codeblock-with-language-selector";
 
 interface DefaultEditorProviderProps {
     limit?: number;
@@ -55,10 +56,11 @@ export function DefaultEditorProvider({
                 },
                 codeBlock: false,
             }),
-            CodeBlockLowlight.configure({
-                lowlight,
-                defaultLanguage: "plaintext",
-            }),
+            CodeBlockLowlight.extend({
+                addNodeView() {
+                    return ReactNodeViewRenderer(CodeBlockWithLanguageSelector);
+                },
+            }).configure({ lowlight, defaultLanguage: "plaintext" }),
             TaskList,
             TaskItem.configure({
                 nested: true,
