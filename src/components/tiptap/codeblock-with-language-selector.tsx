@@ -20,7 +20,7 @@ export function CodeBlockWithLanguageSelector({
 }: NodeViewProps) {
     const [open, setOpen] = React.useState(false);
     return (
-        <NodeViewWrapper className="relative">
+        <NodeViewWrapper className="relative group/codeblock">
             <Select
                 open={open}
                 onOpenChange={setOpen}
@@ -31,7 +31,7 @@ export function CodeBlockWithLanguageSelector({
                     size="sm"
                     className={cn(
                         "absolute z-20 data-[size=sm]:h-6 top-2 right-2 cursor-pointer text-xs [&_svg]:size-3",
-                        "border-none py-1 hover:bg-foreground/5 shadow-none rounded-[calc(var(--radius)-6px)]",
+                        "border-none py-1 hover:bg-foreground/5 shadow-none rounded-[calc(var(--radius)-6px)] opacity-0 group-hover/codeblock:opacity-100 data-[state=open]:opacity-100 transition-opacity duration-300 ease-in-out",
                     )}
                 >
                     <SelectValue placeholder="Language" />
