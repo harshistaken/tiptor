@@ -221,6 +221,27 @@
     }
 }
 
+/* Custom scrollbar styles */
+* {
+    &::-webkit-scrollbar {
+        display: block;
+        width: 0.5rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--muted);
+        border-radius: 4px;
+    }
+
+    /* Firefox scrollbar */
+    scrollbar-width: thin;
+    scrollbar-color: var(--muted) transparent;
+}
+
 /* Editor typography styles */
 @utility editor-styles {
     @apply prose dark:prose-invert prose-neutral 2xl:prose-base font-sans leading-normal outline-none focus:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
