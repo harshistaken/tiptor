@@ -28,6 +28,7 @@ const lowlight = createLowlight(all);
 import { Selection } from "@/custom-extensions/selection-extension";
 import { TrailingNode } from "@/custom-extensions/trailing-node-extension";
 import { CodeBlockWithLanguageSelector } from "@/components/tiptap/codeblock-with-language-selector";
+import { HeadingWithId } from "@/custom-extensions/heading-with-id-extension";
 
 interface DefaultEditorProviderProps {
     limit?: number;
@@ -51,9 +52,7 @@ export function DefaultEditorProvider({
             // Add your desired extensions here
             // Node Extensions
             StarterKit.configure({
-                heading: {
-                    levels: [1, 2, 3],
-                },
+                heading: false,
                 codeBlock: false,
             }),
             CodeBlockLowlight.extend({
@@ -133,7 +132,11 @@ export function DefaultEditorProvider({
                 types: ["heading", "paragraph"],
             }),
             Typography,
+
             // Custom Extensions
+            HeadingWithId.configure({
+                levels: [1, 2, 3],
+            }),
             Selection,
             TrailingNode,
         ],
