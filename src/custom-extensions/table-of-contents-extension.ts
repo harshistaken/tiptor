@@ -282,8 +282,8 @@ export const getHeadlineLevel: GetTableOfContentLevelFn = (headline, previousIte
     // get the last item in the previous items
     const lastItem = previousItems.at(-1);
 
-    // get the last item with the same level
-    const lastSameLevel = previousItems
+    // get the last item with the same level - create a copy before reversing
+    const lastSameLevel = [...previousItems]
         .reverse()
         .find((item) => item.originalLevel <= headline.node.attrs.level);
     const lastLevel = lastSameLevel?.level || 1;
@@ -345,7 +345,7 @@ const generateTableOfContents = ({
     if (editor.isDestroyed) return storage.content;
 
     const headlineNodes: Array<{ node: Node; pos: number }> = [];
-    let content: TableOfContentItem[] = [];
+    const content: TableOfContentItem[] = [];
     const anchors: Array<HTMLHeadingElement | HTMLElement> = [];
 
     editor.state.doc.descendants((node, pos) => {
@@ -354,9 +354,9 @@ const generateTableOfContents = ({
         }
     });
 
-    content = headlineNodes.map((headline, index) => {
+    headlineNodes.forEach((headline) => {
         const domNode = editor.view.domAtPos(headline.pos + 1).node as HTMLElement;
-        const previousContent = content.slice(0, index);
+        const previousContent = content;
         const level = getHeadlineLevelFn(headline, previousContent);
         const itemIndex = getHeadlineIndexFn(headline, previousContent, level);
 
@@ -364,7 +364,7 @@ const generateTableOfContents = ({
             anchors.push(domNode);
         }
 
-        return {
+        content.push({
             dom: domNode as HTMLHeadingElement,
             editor,
             id: headline.node.attrs["data-toc-id"],
@@ -376,7 +376,7 @@ const generateTableOfContents = ({
             originalLevel: headline.node.attrs.level || 1,
             pos: headline.pos,
             textContent: headline.node.textContent,
-        };
+        });
     });
 
     storage.anchors = anchors;
