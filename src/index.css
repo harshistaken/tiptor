@@ -1,11 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@/styles/codeblock-theme.css";
 
 /* Additional imports & plugins */
 @plugin "@tailwindcss/typography";
 
-/* Additional fonts , these local fonts are added in /src/assets/fonts/ */
+/* Fonts are added in /src/assets/fonts/ */
 @font-face {
     font-family: "Inter";
     font-style: normal;
@@ -14,34 +13,10 @@
     src: url("@/assets/fonts/Inter.ttf") format("truetype-variations");
 }
 
-@font-face {
-    font-family: "Roboto";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("@/assets/fonts/Roboto.ttf") format("truetype-variations");
-}
-
-@font-face {
-    font-family: "OpenSans";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("@/assets/fonts/OpenSans.ttf") format("truetype-variations");
-}
-
-@font-face {
-    font-family: "JetBrainsMono";
-    font-style: normal;
-    font-weight: 100 900;
-    font-display: swap;
-    src: url("@/assets/fonts/JetBrainsMono.ttf") format("truetype-variations");
-}
-
 /* Dark mode support */
 @custom-variant dark (&:is(.dark *));
 
-/* config */
+/* Theme variables */
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -81,10 +56,6 @@
 
     /* additional css variables */
     --font-inter: "Inter", var(--font-sans);
-    --font-roboto: "Roboto", var(--font-sans);
-    --font-open-sans: "OpenSans", var(--font-sans);
-    --font-jetbrains-mono: "JetBrainsMono", var(--font-mono);
-
     --breakpoint-xs: 24rem;
 }
 
@@ -123,26 +94,10 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 
-    --editor-highlight-color-green: #dcfce7;
-    --editor-highlight-color-green-contrast: #c7fad8;
-    --editor-highlight-color-blue: #e0f2fe;
-    --editor-highlight-color-blue-contrast: #ceeafd;
-    --editor-highlight-color-red: #ffe4e6;
-    --editor-highlight-color-red-contrast: #ffccd0;
-    --editor-highlight-color-purple: #f3e8ff;
-    --editor-highlight-color-purple-contrast: #e4ccff;
-    --editor-highlight-color-yellow: #fef9c3;
-    --editor-highlight-color-yellow-contrast: #fbe604;
-
-    /* Add corresponding text colors for light theme */
-    --editor-text-color-green: #166534; /* Dark Green */
-    --editor-text-color-blue: #1e40af; /* Dark Blue */
-    --editor-text-color-red: #991b1b; /* Dark Red */
-    --editor-text-color-purple: #6b21a8; /* Dark Purple */
-    --editor-text-color-yellow: #854d0e; /* Dark Yellow/Brown */
+    /* additional css variables */
+    --scrollbar: oklch(0.8 0 0);
 }
 
-/* Custom dark theme */
 .dark {
     --background: oklch(0.145 0 0);
     --foreground: oklch(0.985 0 0);
@@ -176,23 +131,8 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.439 0 0);
 
-    --editor-highlight-color-green: #509568;
-    --editor-highlight-color-green-contrast: #47855d;
-    --editor-highlight-color-blue: #6e92aa;
-    --editor-highlight-color-blue-contrast: #5e86a1;
-    --editor-highlight-color-red: #743e42;
-    --editor-highlight-color-red-contrast: #643539;
-    --editor-highlight-color-purple: #583e74;
-    --editor-highlight-color-purple-contrast: #4c3564;
-    --editor-highlight-color-yellow: #6b6524;
-    --editor-highlight-color-yellow-contrast: #58531e;
-
-    /* Add corresponding text colors for dark theme */
-    --editor-text-color-green: #bbf7d0; /* Light Green */
-    --editor-text-color-blue: #bfdbfe; /* Light Blue */
-    --editor-text-color-red: #fecaca; /* Light Red */
-    --editor-text-color-purple: #e9d5ff; /* Light Purple */
-    --editor-text-color-yellow: #fef08a; /* Light Yellow */
+    /* additional css variables */
+    --scrollbar: oklch(0.3 0 0);
 }
 
 /* Base styles */
@@ -202,22 +142,6 @@
     }
     body {
         @apply bg-background text-foreground font-inter;
-    }
-}
-
-/* Firefox-specific fixes for text editor */
-@-moz-document url-prefix() {
-    .ProseMirror {
-        cursor: text !important;
-    }
-
-    .ProseMirror * {
-        user-select: text !important;
-        -moz-user-select: text !important;
-    }
-
-    .ProseMirror p {
-        line-height: 1.5 !important;
     }
 }
 
@@ -233,203 +157,11 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: var(--muted);
+        background-color: var(--scrollbar);
         border-radius: 4px;
     }
 
     /* Firefox scrollbar */
     scrollbar-width: thin;
-    scrollbar-color: var(--muted) transparent;
-}
-
-/* Editor typography styles */
-@utility editor-styles {
-    @apply prose dark:prose-invert prose-neutral 2xl:prose-base font-sans leading-normal outline-none focus:outline-none disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50;
-
-    :is(h1, h2, h3, h4, h5, h6) {
-        @apply whitespace-pre-wrap break-words py-1 font-semibold text-foreground leading-[1.3];
-
-        strong {
-            @apply font-semibold;
-        }
-    }
-
-    h1 {
-        @apply mt-8 mb-1 text-3xl;
-    }
-
-    h2 {
-        @apply mt-6 mb-0.5 text-2xl;
-    }
-
-    h3 {
-        @apply mt-4 mb-0.5 text-xl;
-    }
-
-    h4 {
-        @apply mt-2 mb-0.5 text-lg;
-    }
-
-    h5 {
-        @apply mt-1 mb-0.5 text-base;
-    }
-
-    h6 {
-        @apply mt-1 mb-0.5 text-base;
-    }
-
-    > p {
-        @apply my-0.5 whitespace-pre-wrap break-words py-1 text-foreground/90;
-    }
-
-    a {
-        @apply font-normal break-words cursor-pointer decoration-inherit text-foreground/70 underline hover:text-foreground/90 focus:text-foreground/90;
-    }
-
-    hr {
-        @apply my-4 border-border;
-    }
-
-    blockquote {
-        @apply my-2 font-normal;
-
-        p {
-            @apply py-0 not-italic before:pr-[2px] after:pl-[2px] before:content-[open-quote] after:content-[close-quote] text-foreground/90;
-        }
-    }
-
-    strong {
-        @apply font-semibold text-foreground/90;
-    }
-
-    code {
-        @apply bg-secondary text-foreground/90 border border-border font-jetbrains-mono font-normal text-sm leading-[1.4] rounded-sm px-1 py-0.5 before:content-[none] after:content-[none];
-    }
-
-    pre {
-        @apply flex my-1 grow text-left relative min-w-0 w-full bg-foreground/5 rounded-md p-5;
-
-        code {
-            @apply overflow-x-auto grow shrink text-left font-jetbrains-mono min-h-[1em] whitespace-pre bg-transparent border-none rounded-none py-4 pt-5;
-        }
-    }
-
-    ul,
-    ol {
-        @apply my-4 pl-6 first:mt-0 last:mb-0; /* Reduced vertical margin slightly */
-
-        ul,
-        ol {
-            @apply my-2; /* Adjusted nested list margin */
-        }
-    }
-
-    /* List item styles */
-    li {
-        @apply my-1 marker:text-foreground/80; /* Added small vertical margin */
-
-        p {
-            @apply my-0.5; /* Added slight vertical padding/margin to paragraphs */
-        }
-
-        p + p {
-            @apply mt-2;
-        }
-
-        p:first-child:not(:last-child) {
-            @apply mb-2;
-        }
-
-        p:last-child:not(:first-child) {
-            @apply mb-2;
-        }
-
-        ul {
-            @apply !mb-1; /* Reduced bottom margin for nested lists */
-        }
-    }
-
-    ol {
-        list-style: decimal;
-
-        ol {
-            list-style: lower-alpha;
-
-            ol {
-                list-style: lower-roman;
-            }
-        }
-    }
-
-    ul:not([data-type="taskList"]) {
-        list-style: disc;
-
-        ul {
-            list-style: circle;
-
-            ul {
-                list-style: square; /* Changed third level to square for better distinction */
-            }
-        }
-    }
-
-    ul[data-type="taskList"] {
-        @apply pl-0 list-none; /* Ensure no list style */
-
-        li {
-            @apply flex flex-row items-start gap-2 my-1.5; /* Added gap, adjusted vertical margin */
-
-            &:not(:has(> p:first-child)) {
-                @apply list-none;
-            }
-
-            &[data-checked="true"] {
-                > div > p {
-                    @apply text-muted-foreground opacity-70 line-through; /* Use muted color, slightly less opacity */
-                }
-
-                > div > p span {
-                    @apply line-through;
-                }
-            }
-
-            label {
-                @apply relative pt-1.5 pr-0; /* Removed right padding, rely on gap */
-
-                input[type="checkbox"] {
-                    @apply absolute opacity-0 w-0 h-0;
-                }
-
-                span {
-                    @apply block w-[1em] h-[1em] border border-border rounded relative cursor-pointer transition-all duration-100 bg-foreground/10;
-
-                    &::before {
-                        @apply absolute left-1/2 top-1/2 transform translate-x-[-50%] translate-y-[-50%] w-[0.75em] h-[0.75em] bg-background opacity-0;
-                        content: "";
-                        -webkit-mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22currentColor%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M21.4142%204.58579C22.1953%205.36683%2022.1953%206.63317%2021.4142%207.41421L10.4142%2018.4142C9.63317%2019.1953%208.36684%2019.1953%207.58579%2018.4142L2.58579%2013.4142C1.80474%2012.6332%201.80474%2011.3668%202.58579%2010.5858C3.36683%209.80474%204.63317%209.80474%205.41421%2010.5858L9%2014.1716L18.5858%204.58579C19.3668%203.80474%2020.6332%203.80474%2021.4142%204.58579Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E")
-                            center/contain no-repeat;
-                        mask: url("data:image/svg+xml,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22currentColor%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20clip-rule%3D%22evenodd%22%20d%3D%22M21.4142%204.58579C22.1953%205.36683%2022.1953%206.63317%2021.4142%207.41421L10.4142%2018.4142C9.63317%2019.1953%208.36684%2019.1953%207.58579%2018.4142L2.58579%2013.4142C1.80474%2012.6332%201.80474%2011.3668%202.58579%2010.5858C3.36683%209.80474%204.63317%209.80474%205.41421%2010.5858L9%2014.1716L18.5858%204.58579C19.3668%203.80474%2020.6332%203.80474%2021.4142%204.58579Z%22%20fill%3D%22currentColor%22%2F%3E%3C%2Fsvg%3E")
-                            center/contain no-repeat;
-                    }
-                }
-
-                input[type="checkbox"]:checked + span {
-                    @apply border-border bg-foreground/90;
-
-                    &::before {
-                        @apply opacity-100;
-                    }
-                }
-            }
-
-            div {
-                @apply flex-1 min-w-0;
-            }
-        }
-    }
-
-    /* Placeholder styles */
-    :is(h1, h2, h3, h4, h5, h6, p).is-empty::before {
-        @apply content-[attr(data-placeholder)] text-muted-foreground float-left h-0 pointer-events-none;
-    }
+    scrollbar-color: var(--scrollbar) transparent;
 }
