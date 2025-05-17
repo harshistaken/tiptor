@@ -1,7 +1,14 @@
+import { BlockEditorContainer } from "./editors/block-based/block-editor-container";
+import { BlockEditorHeader } from "./editors/block-based/block-editor-header";
+import { BlockEditorContent } from "./editors/block-based/block-editor-content";
+
 function App() {
-    return (
-        <div className="w-full min-h-screen flex items-center justify-center p-8">Hello world</div>
-    );
+  return (
+    <BlockEditorContainer>
+      <BlockEditorHeader />
+      <BlockEditorContent />
+    </BlockEditorContainer>
+  );
 }
 
 export default App;
