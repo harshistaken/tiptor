@@ -1,13 +1,13 @@
 export function BlockEditorContainer({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  return (
-    <div className="bg-block-bg-default text-block-fg-default flex flex-1 outline-none w-full h-full cursor-text">
-      <div className="isolation-auto flex flex-col bg-transparent w-full h-full overflow-hidden">
-        {children}
-      </div>
-    </div>
-  );
+    return (
+        <div className="bg-tiptor-background text-tiptor-foreground flex h-full w-full flex-1 cursor-text font-sans outline-none">
+            <div className="isolation-auto flex h-full w-full flex-col overflow-hidden bg-transparent">
+                {children}
+            </div>
+        </div>
+    );
 }
