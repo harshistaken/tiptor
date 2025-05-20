@@ -9,19 +9,19 @@ import { ListKeymap } from "@tiptap/extension-list-keymap";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 
-interface BlockEditorProviderProps {
+interface EditorProviderProps {
     content?: string;
     editable?: boolean;
     onContentChange?: (content: string) => void;
     children: React.ReactNode;
 }
 
-export function BlockEditorProvider({
+export function EditorProvider({
     content = "",
     editable = true,
     onContentChange,
     children,
-}: BlockEditorProviderProps) {
+}: EditorProviderProps) {
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
