@@ -34,7 +34,7 @@ export const historyShortcutKeys: Partial<Record<HistoryAction, string>> = {
     redo: "Ctrl-Shift-z",
 };
 
-export const historyActionLabels: Record<HistoryAction, string> = {
+export const historyLabels: Record<HistoryAction, string> = {
     undo: "Undo",
     redo: "Redo",
 };
@@ -66,10 +66,12 @@ export function isHistoryActionDisabled(
 }
 
 export function useHistoryAction(
-    editor: Editor | null,
+    providedEditor: Editor | null,
     action: HistoryAction,
     disabled: boolean = false,
 ) {
+    const editor = useTiptapEditor(providedEditor);
+
     const canExecute = React.useMemo(
         () => canExecuteHistoryAction(editor, action),
         [editor, action],
@@ -83,7 +85,7 @@ export function useHistoryAction(
     }, [editor, action, isDisabled]);
 
     const Icon = historyIcons[action];
-    const actionLabel = historyActionLabels[action];
+    const label = historyLabels[action];
     const shortcutKey = historyShortcutKeys[action];
 
     return {
@@ -91,7 +93,7 @@ export function useHistoryAction(
         isDisabled,
         handleAction,
         Icon,
-        actionLabel,
+        label,
         shortcutKey,
     };
 }
@@ -114,7 +116,7 @@ export const UndoRedoDropdownItem = React.forwardRef<
     ) => {
         const editor = useTiptapEditor(providedEditor);
 
-        const { isDisabled, handleAction, Icon, actionLabel, shortcutKey } =
+        const { isDisabled, handleAction, Icon, label, shortcutKey } =
             useHistoryAction(editor, action, disabled);
 
         const handleSelect = React.useCallback(
@@ -127,7 +129,6 @@ export const UndoRedoDropdownItem = React.forwardRef<
             },
             [onSelect, disabled, handleAction],
         );
-        console.log(editor, editor?.isEditable);
 
         if (!editor || !editor.isEditable) {
             return null;
@@ -135,13 +136,9 @@ export const UndoRedoDropdownItem = React.forwardRef<
 
         return (
             <DropdownMenuItem
-                className={cn(
-                    "h-7 shrink-0 cursor-pointer rounded-md text-sm font-normal select-none",
-                    "text-tiptor-foreground focus:text-tiptor-foreground focus:bg-tiptor-secondary",
-                    className,
-                )}
+                className={cn("h-7 cursor-pointer", className)}
                 role="button"
-                aria-label={actionLabel}
+                aria-label={label}
                 tabIndex={-1}
                 disabled={isDisabled}
                 onSelect={handleSelect}
@@ -151,9 +148,9 @@ export const UndoRedoDropdownItem = React.forwardRef<
                 {children || (
                     <>
                         <Icon className="pointer-events-none size-5 shrink-0 text-inherit" />
-                        <span>{actionLabel}</span>
+                        <span>{label}</span>
                         {shortcutKey && (
-                            <DropdownMenuShortcut className="text-tiptor-secondary">
+                            <DropdownMenuShortcut className="text-secondary">
                                 <Shortcut shortcutKey={shortcutKey} />
                             </DropdownMenuShortcut>
                         )}

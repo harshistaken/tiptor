@@ -25,7 +25,7 @@ export const EditorContextProvider = ({
 }: {
     children: React.ReactNode;
 }) => {
-    const [title, setTitle] = React.useState("Hello World");
+    const [title, setTitle] = React.useState("Antialiased");
     const [content, setContent] = React.useState("");
 
     const value = React.useMemo(

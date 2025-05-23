@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "material-symbols";
-@import "./styles/block-editor-styles.css";
 
 /* Additional imports & plugins */
+@import "material-symbols";
 @plugin "@tailwindcss/typography";
 
 /* Fonts are added in /src/assets/fonts/ */
@@ -13,6 +12,38 @@
     font-weight: 100 900;
     font-display: swap;
     src: url("@/assets/fonts/InterV.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "EB_Garamond";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("@/assets/fonts/EBGaramondV.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "IA_Writer_Mono";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("@/assets/fonts/IAWriterMonoV.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "Noto_Sans";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("@/assets/fonts/NotoSansV.ttf") format("truetype-variations");
+}
+
+@font-face {
+    font-family: "Open_Sans";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url("@/assets/fonts/OpenSansV.ttf") format("truetype-variations");
 }
 
 /* Dark mode support */
@@ -57,7 +88,13 @@
     --color-sidebar-ring: var(--sidebar-ring);
 
     /* additional css variables */
-    --font-inter: "Inter", var(--font-sans);
+    --font-inter: "Inter", sans-serif;
+    --font-eb-garamond: "EB_Garamond", serif;
+    --font-ia-writer-mono: "IA_Writer_Mono", monospace;
+    --font-noto-sans: "Noto_Sans", sans-serif;
+    --font-open-sans: "Open_Sans", sans-serif;
+
+    /* Breakpoints */
     --breakpoint-xs: 24rem;
 }
 
@@ -65,32 +102,27 @@
 :root {
     --radius: 0.5rem;
     --background: oklch(1 0 0);
-    --foreground: oklch(0.145 0 0);
+    --foreground: rgb(50, 48, 44); /* custom */
     --card: oklch(1 0 0);
-    --card-foreground: oklch(0.145 0 0);
+    --card-foreground: rgb(50, 48, 44); /* custom */
     --popover: oklch(1 0 0);
-    --popover-foreground: oklch(0.145 0 0);
-    --primary: oklch(0.205 0 0);
-    --primary-foreground: oklch(0.985 0 0);
+    --popover-foreground: rgb(50, 48, 44); /* custom */
+    --primary: rgb(74, 222, 128); /* custom */
+    --primary-foreground: oklch(0.205 0 0);
     --secondary: oklch(0.97 0 0);
-    --secondary-foreground: oklch(0.205 0 0);
+    --secondary-foreground: rgb(70 68 64 / 45%); /* custom */
     --muted: oklch(0.97 0 0);
     --muted-foreground: oklch(0.556 0 0);
     --accent: oklch(0.97 0 0);
     --accent-foreground: oklch(0.205 0 0);
-    --destructive: oklch(0.577 0.245 27.325);
+    --destructive: rgb(235, 87, 87); /* custom */
     --border: oklch(0.922 0 0);
     --input: oklch(0.922 0 0);
     --ring: oklch(0.708 0 0);
-    --chart-1: oklch(0.646 0.222 41.116);
-    --chart-2: oklch(0.6 0.118 184.704);
-    --chart-3: oklch(0.398 0.07 227.392);
-    --chart-4: oklch(0.828 0.189 84.429);
-    --chart-5: oklch(0.769 0.188 70.08);
     --sidebar: oklch(0.985 0 0);
-    --sidebar-foreground: oklch(0.145 0 0);
-    --sidebar-primary: oklch(0.205 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-foreground: hsl(40, 6%, 10%); /* custom */
+    --sidebar-primary: rgb(74, 222, 128); /* custom */
+    --sidebar-primary-foreground: oklch(0.205 0 0);
     --sidebar-accent: oklch(0.97 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
     --sidebar-border: oklch(0.922 0 0);
@@ -98,36 +130,33 @@
 
     /* additional css variables */
     --scrollbar: oklch(0.8 0 0);
+    --caret: rgb(50, 48, 44);
+    --title-placeholder: rgb(55 53 47 / 15%);
 }
 
 .dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.205 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.269 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.922 0 0);
+    --background: rgb(25, 25, 25); /* custom */
+    --foreground: rgb(255 255 255 / 81%); /* custom */
+    --card: rgb(37, 37, 37); /* custom */
+    --card-foreground: rgb(255 255 255 / 81%); /* custom */
+    --popover: rgb(37, 37, 37); /* custom */
+    --popover-foreground: rgb(255 255 255 / 81%); /* custom */
+    --primary: rgb(74, 222, 128); /* custom */
     --primary-foreground: oklch(0.205 0 0);
     --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
+    --secondary-foreground: rgba(255, 255, 255, 0.282); /* custom */
     --muted: oklch(0.269 0 0);
     --muted-foreground: oklch(0.708 0 0);
     --accent: oklch(0.371 0 0);
     --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.704 0.191 22.216);
+    --destructive: rgb(235, 87, 87); /* custom */
     --border: oklch(1 0 0 / 10%);
     --input: oklch(1 0 0 / 15%);
     --ring: oklch(0.556 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
     --sidebar: oklch(0.205 0 0);
     --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.488 0.243 264.376);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-primary: rgb(74, 222, 128); /* custom */
+    --sidebar-primary-foreground: oklch(0.205 0 0);
     --sidebar-accent: oklch(0.269 0 0);
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(1 0 0 / 10%);
@@ -135,6 +164,8 @@
 
     /* additional css variables */
     --scrollbar: oklch(0.3 0 0);
+    --caret: rgb(255 255 255 / 81%);
+    --title-placeholder: rgb(55, 55, 55);
 }
 
 /* Base styles */

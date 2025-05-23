@@ -180,7 +180,7 @@ export const FontFamilyButton = React.forwardRef<
         return (
             <Button
                 variant="ghost"
-                size="icon"
+                size="sm"
                 role="button"
                 disabled={isDisabled}
                 ref={ref}
@@ -188,7 +188,7 @@ export const FontFamilyButton = React.forwardRef<
                 aria-label={fontFamily.label}
                 aria-pressed={isActive}
                 className={cn(
-                    "hover:text-tiptor-foreground hover:bg-tiptor-secondary text-tiptor-foreground flex h-fit w-fit shrink-0 cursor-pointer flex-col items-center justify-center gap-1 p-2 pt-3 font-normal transition-colors duration-300 select-none focus:outline-none",
+                    "flex h-fit w-fit cursor-pointer flex-col gap-1 pt-3 pb-2 transition-colors duration-300 select-none",
                     className,
                 )}
                 {...buttonProps}
@@ -198,13 +198,13 @@ export const FontFamilyButton = React.forwardRef<
                         <span
                             className={cn(
                                 "text-2xl",
-                                isActive && "text-tiptor-primary-green",
+                                isActive && "text-primary",
                             )}
                             style={{ fontFamily: fontFamily.value }}
                         >
                             Ag
                         </span>
-                        <span className="text-tiptor-secondary-foreground text-center text-xs text-wrap capitalize">
+                        <span className="text-secondary-foreground text-center text-xs text-wrap capitalize">
                             {fontFamily.label}
                         </span>
                     </>

@@ -34,7 +34,7 @@ export const Shortcut: React.FC<{ shortcutKey: string | undefined }> = ({
 
     return (
         <div className="flex items-center justify-center">
-            <kbd className="text-muted-foreground pointer-events-none inline-flex items-center gap-1 font-sans opacity-100 select-none">
+            <kbd className="text-secondary-foreground pointer-events-none inline-flex items-center gap-1 font-sans opacity-100 select-none">
                 {formattedKeys.map((key, index) => (
                     <React.Fragment key={index}>{key}</React.Fragment>
                 ))}
