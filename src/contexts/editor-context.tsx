@@ -7,9 +7,7 @@ type EditorContextType = {
     setContent: (content: string) => void;
 };
 
-const EditorContext = React.createContext<EditorContextType | undefined>(
-    undefined,
-);
+const EditorContext = React.createContext<EditorContextType | undefined>(undefined);
 
 export const useEditorContext = () => {
     const context = React.useContext(EditorContext);
@@ -20,12 +18,8 @@ export const useEditorContext = () => {
     return context;
 };
 
-export const EditorContextProvider = ({
-    children,
-}: {
-    children: React.ReactNode;
-}) => {
-    const [title, setTitle] = React.useState("Antialiased");
+export const EditorContextProvider = ({ children }: { children: React.ReactNode }) => {
+    const [title, setTitle] = React.useState("Canvas");
     const [content, setContent] = React.useState("");
 
     const value = React.useMemo(
@@ -38,9 +32,5 @@ export const EditorContextProvider = ({
         [title, content],
     );
 
-    return (
-        <EditorContext.Provider value={value}>
-            {children}
-        </EditorContext.Provider>
-    );
+    return <EditorContext.Provider value={value}>{children}</EditorContext.Provider>;
 };

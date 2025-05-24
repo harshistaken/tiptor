@@ -1,11 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
-/* Additional imports & plugins */
 @import "material-symbols";
 @plugin "@tailwindcss/typography";
 
-/* Fonts are added in /src/assets/fonts/ */
 @font-face {
     font-family: "Inter";
     font-style: normal;
@@ -46,10 +43,8 @@
     src: url("@/assets/fonts/OpenSansV.ttf") format("truetype-variations");
 }
 
-/* Dark mode support */
 @custom-variant dark (&:is(.dark *));
 
-/* Theme variables */
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
     --radius-md: calc(var(--radius) - 2px);
@@ -87,18 +82,15 @@
     --color-sidebar-border: var(--sidebar-border);
     --color-sidebar-ring: var(--sidebar-ring);
 
-    /* additional css variables */
+    /* customs*/
     --font-inter: "Inter", sans-serif;
     --font-eb-garamond: "EB_Garamond", serif;
     --font-ia-writer-mono: "IA_Writer_Mono", monospace;
     --font-noto-sans: "Noto_Sans", sans-serif;
     --font-open-sans: "Open_Sans", sans-serif;
-
-    /* Breakpoints */
     --breakpoint-xs: 24rem;
 }
 
-/* Custom light theme */
 :root {
     --radius: 0.5rem;
     --background: oklch(1 0 0);
@@ -128,7 +120,7 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 
-    /* additional css variables */
+    /* additional */
     --scrollbar: oklch(0.8 0 0);
     --caret: rgb(50, 48, 44);
     --title-placeholder: rgb(55 53 47 / 15%);
@@ -162,13 +154,12 @@
     --sidebar-border: oklch(1 0 0 / 10%);
     --sidebar-ring: oklch(0.439 0 0);
 
-    /* additional css variables */
+    /* additional */
     --scrollbar: oklch(0.3 0 0);
     --caret: rgb(255 255 255 / 81%);
     --title-placeholder: rgb(55, 55, 55);
 }
 
-/* Base styles */
 @layer base {
     * {
         @apply border-border isolate outline-none;

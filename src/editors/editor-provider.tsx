@@ -9,19 +9,18 @@ import { ListKeymap } from "@tiptap/extension-list-keymap";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 
+// --- Contexts ---
+import { useEditorContext } from "@/contexts/editor-context";
+import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
+
 interface EditorProviderProps {
-    content?: string;
-    editable?: boolean;
-    onContentChange?: (content: string) => void;
     children: React.ReactNode;
 }
 
-export function EditorProvider({
-    content = "",
-    editable = true,
-    onContentChange,
-    children,
-}: EditorProviderProps) {
+export function EditorProvider({ children }: EditorProviderProps) {
+    const { content, setContent } = useEditorContext();
+    const { settings } = useEditorSettingsContext();
+
     const editor = useEditor({
         extensions: [
             StarterKit.configure({
@@ -39,7 +38,7 @@ export function EditorProvider({
             Typography,
         ],
         content,
-        editable,
+        editable: !settings.readOnly,
         editorProps: {
             attributes: {
                 autocomplete: "false",
@@ -49,20 +48,15 @@ export function EditorProvider({
             },
         },
         onUpdate({ editor }) {
-            onContentChange?.(editor.getHTML());
+            setContent(editor.getHTML());
         },
     });
 
-    // Update content when it changes externally
     React.useEffect(() => {
         if (editor && content !== editor.getHTML()) {
             editor.commands.setContent(content, false);
         }
     }, [editor, content]);
 
-    return (
-        <EditorContext.Provider value={{ editor }}>
-            {children}
-        </EditorContext.Provider>
-    );
+    return <EditorContext.Provider value={{ editor }}>{children}</EditorContext.Provider>;
 }

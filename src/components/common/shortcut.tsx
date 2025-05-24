@@ -1,9 +1,6 @@
 import React from "react";
 
-// Determine platform
-const IS_MAC =
-    typeof navigator !== "undefined" &&
-    navigator.platform.toLowerCase().includes("mac");
+const IS_MAC = typeof navigator !== "undefined" && navigator.platform.toLowerCase().includes("mac");
 
 const MAC_SYMBOLS: Record<string, string> = {
     ctrl: "⌘",
@@ -11,7 +8,6 @@ const MAC_SYMBOLS: Record<string, string> = {
     shift: "⇧",
 } as const;
 
-// Formatting function
 const formatShortcutKey = (key: string): string => {
     const trimmedKey = key.trim();
     if (IS_MAC) {
@@ -21,10 +17,7 @@ const formatShortcutKey = (key: string): string => {
     return trimmedKey.charAt(0).toUpperCase() + trimmedKey.slice(1);
 };
 
-// Component to display shortcut keys
-export const Shortcut: React.FC<{ shortcutKey: string | undefined }> = ({
-    shortcutKey,
-}) => {
+export const Shortcut: React.FC<{ shortcutKey: string | undefined }> = ({ shortcutKey }) => {
     const formattedKeys = React.useMemo(() => {
         if (!shortcutKey) return [];
         return shortcutKey.split("-").map(formatShortcutKey);

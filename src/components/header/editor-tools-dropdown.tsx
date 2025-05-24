@@ -11,20 +11,21 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FontFamilySelector } from "@/components/header/font-family-selector";
-import UndoRedoDropdownItem from "./undo-redo-button";
+import { HistoryActionDropdownItem } from "./history-action-dropdown-item";
+import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
+import { FontFamilyPicker } from "./font-family-picker";
+import { useEditorContext } from "@/contexts/editor-context";
 
-export function MoreOptionsDropdown() {
+export function EditorToolsDropdown() {
     const [isOpen, setIsOpen] = React.useState(false);
-    const [smallText, setSmallText] = React.useState(false);
-    const [fullWidth, setFullWidth] = React.useState(false);
-    const [tableOfContents, setTableOfContents] = React.useState(false);
+    const { setContent } = useEditorContext();
+    const { settings, setSettings } = useEditorSettingsContext();
 
     return (
         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon">
-                    <Icons.MaterialMoreHoriz className="size-6 shrink-0 text-inherit" />
+                    <Icons.MaterialMoreHoriz className="size-6" />
                 </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -34,99 +35,91 @@ export function MoreOptionsDropdown() {
                 className="max-h-[80vh] w-64 overflow-x-hidden overflow-y-auto font-sans"
             >
                 <DropdownMenuGroup className="pb-2">
-                    <FontFamilySelector />
+                    <FontFamilyPicker disabled={settings.readOnly} />
                 </DropdownMenuGroup>
                 <DropdownMenuGroup className="space-y-[1px]">
-                    <UndoRedoDropdownItem action="undo" />
-                    <UndoRedoDropdownItem action="redo" />
-                    <MoreOptionsDropdownItem className="focus:text-destructive">
-                        <Icons.MaterialDelete className="size-5 shrink-0 text-inherit" />
+                    <HistoryActionDropdownItem action="undo" disabled={settings.readOnly} />
+                    <HistoryActionDropdownItem action="redo" disabled={settings.readOnly} />
+                    <EditorToolsDropdownItem
+                        className="focus:!text-destructive focus:[&_svg]:!text-destructive"
+                        onSelect={() => setContent("")}
+                        disabled={settings.readOnly}
+                    >
+                        <Icons.MaterialDelete className="size-5" />
                         <span>Clear all</span>
-                    </MoreOptionsDropdownItem>
+                    </EditorToolsDropdownItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator className="mx-auto w-[calc(100%-1rem)]" />
                 <DropdownMenuGroup className="space-y-[1px]">
-                    <MoreOptionsToggleDropdownItem
-                        icon={
-                            <Icons.MaterialTextRotateVertical className="size-5 shrink-0 rotate-y-180 text-inherit transform-3d" />
-                        }
+                    <EditorToolsToggleDropdownItem
+                        icon={<Icons.MaterialTextRotateVertical className="size-5 rotate-y-180 transform-3d" />}
                         label="Small text"
-                        checked={smallText}
-                        onCheckedChange={setSmallText}
+                        checked={settings.smallText}
+                        onCheckedChange={() => setSettings({ ...settings, smallText: !settings.smallText })}
                     />
-                    <MoreOptionsToggleDropdownItem
-                        icon={
-                            <Icons.MaterialArrowOutward className="size-5 shrink-0 text-inherit" />
-                        }
+                    <EditorToolsToggleDropdownItem
+                        icon={<Icons.MaterialArrowOutward className="size-5" />}
                         label="Full width"
-                        checked={fullWidth}
-                        onCheckedChange={setFullWidth}
+                        checked={settings.fullWidth}
+                        onCheckedChange={() => setSettings({ ...settings, fullWidth: !settings.fullWidth })}
                     />
-                    <MoreOptionsToggleDropdownItem
-                        icon={
-                            <Icons.MaterialToc className="size-5 shrink-0 text-inherit" />
-                        }
+                    <EditorToolsToggleDropdownItem
+                        icon={<Icons.MaterialToc className="size-5" />}
                         label="Table of contents"
-                        checked={tableOfContents}
-                        onCheckedChange={setTableOfContents}
+                        checked={settings.tableOfContents}
+                        onCheckedChange={() => setSettings({ ...settings, tableOfContents: !settings.tableOfContents })}
                     />
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator className="mx-auto w-[calc(100%-1rem)]" />
                 <DropdownMenuGroup>
-                    <MoreOptionsDropdownItem>
-                        <Icons.MaterialTranslate className="size-5 shrink-0 text-inherit" />
+                    <EditorToolsDropdownItem>
+                        <Icons.MaterialTranslate className="size-5" />
                         <span>Translate</span>
-                        <Icons.MaterialChevronRight className="ml-auto size-5 shrink-0 text-inherit" />
-                    </MoreOptionsDropdownItem>
+                        <Icons.MaterialChevronRight className="ml-auto size-5" />
+                    </EditorToolsDropdownItem>
                 </DropdownMenuGroup>
                 <DropdownMenuSeparator className="mx-auto w-[calc(100%-1rem)]" />
                 <DropdownMenuGroup className="space-y-[1px]">
-                    <MoreOptionsDropdownItem>
-                        <Icons.MaterialVerticalAlignTop className="size-5 shrink-0 text-inherit" />
+                    <EditorToolsDropdownItem>
+                        <Icons.MaterialVerticalAlignTop className="size-5" />
                         <span>Export</span>
-                    </MoreOptionsDropdownItem>
-                    <MoreOptionsDropdownItem>
-                        <Icons.MaterialVerticalAlignBottom className="size-5 shrink-0 text-inherit" />
+                    </EditorToolsDropdownItem>
+                    <EditorToolsDropdownItem>
+                        <Icons.MaterialVerticalAlignBottom className="size-5" />
                         <span>Import</span>
-                    </MoreOptionsDropdownItem>
+                    </EditorToolsDropdownItem>
                 </DropdownMenuGroup>
             </DropdownMenuContent>
         </DropdownMenu>
     );
 }
 
-function MoreOptionsDropdownItem({
+function EditorToolsDropdownItem({
     children,
     onSelect,
     className,
     ...props
 }: React.ComponentProps<typeof DropdownMenuItem>) {
     return (
-        <DropdownMenuItem
-            className={cn("h-7 cursor-pointer", className)}
-            onSelect={onSelect}
-            {...props}
-        >
+        <DropdownMenuItem className={cn("h-7 cursor-pointer", className)} onSelect={onSelect} {...props}>
             {children}
         </DropdownMenuItem>
     );
 }
 
-interface MoreOptionsToggleDropdownItemProps {
-    icon: React.ReactNode;
-    label: string;
-    checked?: boolean;
-    onCheckedChange?: (checked: boolean) => void;
-    className?: string;
-}
-
-function MoreOptionsToggleDropdownItem({
+function EditorToolsToggleDropdownItem({
     icon,
     label,
     checked = false,
     onCheckedChange,
     className,
-}: MoreOptionsToggleDropdownItemProps) {
+}: {
+    icon: React.ReactNode;
+    label: string;
+    checked?: boolean;
+    onCheckedChange?: (checked: boolean) => void;
+    className?: string;
+}) {
     return (
         <DropdownMenuItem
             className={cn("h-7 cursor-pointer", className)}
