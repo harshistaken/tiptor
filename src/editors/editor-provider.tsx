@@ -1,23 +1,30 @@
 import React from "react";
+import { cn } from "@/lib/utils";
 import { EditorContext, useEditor } from "@tiptap/react";
 
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
+import { Document } from "@tiptap/extension-document";
 import { FontFamily } from "@tiptap/extension-font-family";
 import { TextStyle } from "@tiptap/extension-text-style";
-import { ListKeymap } from "@tiptap/extension-list-keymap";
 import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
+import { Placeholder } from "@tiptap/extension-placeholder";
 
 // --- Contexts ---
 import { useEditorContext } from "@/contexts/editor-context";
 import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
 
+const EditorDocumentStructure = Document.extend({
+    content: "heading block*",
+});
+
 interface EditorProviderProps {
     children: React.ReactNode;
+    editorClassName?: string;
 }
 
-export function EditorProvider({ children }: EditorProviderProps) {
+export function EditorProvider({ children, editorClassName }: EditorProviderProps) {
     const { content, setContent } = useEditorContext();
     const { settings } = useEditorSettingsContext();
 
@@ -28,10 +35,35 @@ export function EditorProvider({ children }: EditorProviderProps) {
                     levels: [1, 2, 3],
                 },
                 codeBlock: false,
+                document: false,
             }),
-            FontFamily,
+            EditorDocumentStructure,
             TextStyle.configure({ mergeNestedSpanStyles: true }),
-            ListKeymap,
+            FontFamily,
+            Placeholder.configure({
+                // Use different placeholders depending on the node type:
+                placeholder: ({ node, pos }) => {
+                    if (node.type.name === "heading") {
+                        // Check if this is the first heading (title heading)
+                        if (pos === 0) {
+                            return "New page";
+                        }
+                        // For other headings, show level-specific placeholders
+                        switch (node.attrs.level) {
+                            case 1:
+                                return "Heading 1";
+                            case 2:
+                                return "Heading 2";
+                            case 3:
+                                return "Heading 3";
+                            default:
+                                return "Heading"; // Fallback for other levels if any
+                        }
+                    }
+                    // Default placeholder for other node types or when the first node isn't one of the above
+                    return "Write, press '/' for commands...";
+                },
+            }),
             TextAlign.configure({
                 types: ["heading", "paragraph"],
             }),
@@ -41,10 +73,11 @@ export function EditorProvider({ children }: EditorProviderProps) {
         editable: !settings.readOnly,
         editorProps: {
             attributes: {
-                autocomplete: "false",
-                autocorrect: "false",
-                autocapitalize: "false",
-                spellcheck: "false",
+                autoComplete: "false",
+                autoCorrect: "false",
+                autoCapitalize: "false",
+                spellCheck: "false",
+                class: cn("w-full min-w-full", editorClassName),
             },
         },
         onUpdate({ editor }) {
@@ -52,6 +85,7 @@ export function EditorProvider({ children }: EditorProviderProps) {
         },
     });
 
+    // Update content when it changes externally
     React.useEffect(() => {
         if (editor && content !== editor.getHTML()) {
             editor.commands.setContent(content, false);

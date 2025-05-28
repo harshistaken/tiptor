@@ -89,6 +89,8 @@
     --font-noto-sans: "Noto_Sans", sans-serif;
     --font-open-sans: "Open_Sans", sans-serif;
     --breakpoint-xs: 24rem;
+    --color-editor-placeholder: var(--editor-placeholder);
+    --color-editor-caret: var(--editor-caret);
 }
 
 :root {
@@ -122,8 +124,8 @@
 
     /* additional */
     --scrollbar: oklch(0.8 0 0);
-    --caret: rgb(50, 48, 44);
-    --title-placeholder: rgb(55 53 47 / 15%);
+    --editor-caret: rgb(50, 48, 44);
+    --editor-placeholder: rgb(55 53 47 / 15%);
 }
 
 .dark {
@@ -156,8 +158,8 @@
 
     /* additional */
     --scrollbar: oklch(0.3 0 0);
-    --caret: rgb(255 255 255 / 81%);
-    --title-placeholder: rgb(55, 55, 55);
+    --editor-caret: rgb(255 255 255 / 81%);
+    --editor-placeholder: rgb(55, 55, 55);
 }
 
 @layer base {
