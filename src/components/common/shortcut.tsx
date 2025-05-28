@@ -8,16 +8,16 @@ const MAC_SYMBOLS: Record<string, string> = {
     shift: "⇧",
 } as const;
 
-const formatShortcutKey = (key: string): string => {
+function formatShortcutKey(key: string): string {
     const trimmedKey = key.trim();
     if (IS_MAC) {
         const lowerKey = trimmedKey.toLowerCase();
         return MAC_SYMBOLS[lowerKey] || trimmedKey.toUpperCase();
     }
     return trimmedKey.charAt(0).toUpperCase() + trimmedKey.slice(1);
-};
+}
 
-export const Shortcut: React.FC<{ shortcutKey: string | undefined }> = ({ shortcutKey }) => {
+export function Shortcut({ shortcutKey }: { shortcutKey: string | undefined }) {
     const formattedKeys = React.useMemo(() => {
         if (!shortcutKey) return [];
         return shortcutKey.split("-").map(formatShortcutKey);
@@ -34,4 +34,4 @@ export const Shortcut: React.FC<{ shortcutKey: string | undefined }> = ({ shortc
             </kbd>
         </div>
     );
-};
+}
