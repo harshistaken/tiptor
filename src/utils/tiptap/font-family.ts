@@ -1,5 +1,5 @@
 import { type Editor } from "@tiptap/react";
-import { isMarkInSchema } from "@/lib/utils";
+import { isMarkInSchema } from "@/utils/tiptap/schema";
 
 export interface FontFamily {
     label: string;

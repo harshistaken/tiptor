@@ -2,7 +2,7 @@ import * as React from "react";
 import { type Editor } from "@tiptap/react";
 import { cn } from "@/lib/utils";
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
-import { useHistoryAction, type HistoryAction } from "@/lib/tiptap-utils/history";
+import { useHistoryAction, type HistoryAction } from "@/utils/tiptap/history";
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
 import { Shortcut } from "../common/shortcut";
 

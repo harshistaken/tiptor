@@ -1,14 +1,15 @@
 import React from "react";
 import { type Editor } from "@tiptap/react";
 import { Button } from "@/components/ui/button";
-import { cn, isMarkInSchema } from "@/lib/utils";
+import { cn } from "@/lib/utils";
+import { isMarkInSchema } from "@/utils/tiptap/schema";
 import {
     DEFAULT_FONT_FAMILIES,
     type FontFamily,
     shouldShowFontFamily,
     toggleFontFamily,
     useFontFamilyState,
-} from "@/lib/tiptap-utils/font-family";
+} from "@/utils/tiptap/font-family";
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
 
 export interface FontFamilyPickerProps extends Omit<React.ComponentProps<"div">, "type"> {

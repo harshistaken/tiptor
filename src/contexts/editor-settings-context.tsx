@@ -22,7 +22,7 @@ export const useEditorSettingsContext = () => {
     return context;
 };
 
-export const EditorSettingsProvider = ({ children }: { children: React.ReactNode }) => {
+export const EditorSettingsContextProvider = ({ children }: { children: React.ReactNode }) => {
     const [settings, setSettings] = React.useState<EditorSettings>({
         readOnly: false,
         smallText: false,
