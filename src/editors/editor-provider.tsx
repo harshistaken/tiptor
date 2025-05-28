@@ -5,15 +5,15 @@ import { EditorContext, useEditor } from "@tiptap/react";
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
 import { Document } from "@tiptap/extension-document";
-import { FontFamily } from "@tiptap/extension-font-family";
 import { TextStyle } from "@tiptap/extension-text-style";
-import { TextAlign } from "@tiptap/extension-text-align";
 import { Typography } from "@tiptap/extension-typography";
 import { Placeholder } from "@tiptap/extension-placeholder";
 
 // --- Contexts ---
 import { useEditorContext } from "@/contexts/editor-context";
 import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
+
+// --- Custom Extensions ---
 
 const EditorDocumentStructure = Document.extend({
     content: "heading block*",
@@ -37,9 +37,9 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
                 codeBlock: false,
                 document: false,
             }),
-            EditorDocumentStructure,
+            EditorDocumentStructure, // Custom document structure
+            Typography,
             TextStyle.configure({ mergeNestedSpanStyles: true }),
-            FontFamily,
             Placeholder.configure({
                 // Use different placeholders depending on the node type:
                 placeholder: ({ node, pos }) => {
@@ -64,10 +64,6 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
                     return "Write, press '/' for commands...";
                 },
             }),
-            TextAlign.configure({
-                types: ["heading", "paragraph"],
-            }),
-            Typography,
         ],
         content,
         editable: !settings.readOnly,
@@ -77,7 +73,7 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
                 autoCorrect: "false",
                 autoCapitalize: "false",
                 spellCheck: "false",
-                class: cn("w-full min-w-full", editorClassName),
+                class: cn("w-full min-w-full editor-typography editor-placeholder", editorClassName),
             },
         },
         onUpdate({ editor }) {
