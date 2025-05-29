@@ -1,14 +1,13 @@
-import React from "react";
-import { cn } from "@/lib/utils";
 import { EditorContext, useEditor } from "@tiptap/react";
 
+import { Document } from "@tiptap/extension-document";
+import { Placeholder } from "@tiptap/extension-placeholder";
+import React from "react";
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
-import { Document } from "@tiptap/extension-document";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Typography } from "@tiptap/extension-typography";
-import { Placeholder } from "@tiptap/extension-placeholder";
-
+import { cn } from "@/lib/utils";
 // --- Contexts ---
 import { useEditorContext } from "@/contexts/editor-context";
 import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
@@ -78,8 +77,25 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
         },
         onUpdate({ editor }) {
             setContent(editor.getHTML());
+            const json = editor.getJSON();
+            console.log("json", json);
+        },
+
+        // Enable content check to prevent invalid content from being saved
+        enableContentCheck: true,
+        onContentError: (error) => {
+            console.error("Content error:", error);
         },
     });
+
+    // Set the editor to be editable or not based on the readOnly setting
+    React.useEffect(() => {
+        if (!editor) {
+            return undefined;
+        }
+
+        editor.setEditable(!settings.readOnly);
+    }, [editor, settings.readOnly]);
 
     // Update content when it changes externally
     React.useEffect(() => {
@@ -87,6 +103,10 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
             editor.commands.setContent(content, false);
         }
     }, [editor, content]);
+
+    if (!editor) {
+        return null;
+    }
 
     return <EditorContext.Provider value={{ editor }}>{children}</EditorContext.Provider>;
 }
