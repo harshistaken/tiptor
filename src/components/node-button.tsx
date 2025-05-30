@@ -1,26 +1,34 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { type Editor } from "@tiptap/react";
-
 import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
-
+import { type NodeType, useNodeState } from "@/utils/tiptap/node";
 import { Button } from "@/components/ui/button";
 import { Shortcut } from "@/components/common/shortcut";
 import { DropdownMenuItem, DropdownMenuShortcut } from "@/components/ui/dropdown-menu";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
-import { type NodeType, useNodeState } from "@/utils/tiptap/node";
+// Types & Interfaces
 
-export interface NodeButtonProps extends Omit<React.ComponentProps<typeof Button>, "type"> {
+type BaseNodeElementProps = {
     editor?: Editor | null;
     nodeType: NodeType;
     text?: string;
-    buttonType: "dropdown-item" | "icon" | "default";
     hide?: boolean;
     className?: string;
     disabled?: boolean;
+};
+
+interface NodeDropdownItemProps
+    extends BaseNodeElementProps,
+        Omit<React.ComponentProps<typeof DropdownMenuItem>, "type"> {}
+
+interface NodeButtonProps extends BaseNodeElementProps, Omit<React.ComponentProps<typeof Button>, "type"> {
+    buttonType: "icon" | "default";
     isTooltip?: boolean;
 }
+
+// Components
 
 export const NodeButton = React.forwardRef<HTMLButtonElement, NodeButtonProps>(
     (
@@ -63,31 +71,31 @@ export const NodeButton = React.forwardRef<HTMLButtonElement, NodeButtonProps>(
             return null;
         }
 
+        // Icon button component
+        const IconButtonComponent = (
+            <Button
+                variant={variant}
+                size="icon"
+                role="button"
+                aria-label={nodeType}
+                aria-pressed={isActive}
+                tabIndex={-1}
+                disabled={isDisabled}
+                onClick={handleClick}
+                className={cn(isActive && "bg-accent text-accent-foreground dark:bg-accent/50", className)}
+                ref={ref}
+                {...buttonProps}
+            >
+                <Icon className="pointer-events-none size-4 shrink-0" />
+            </Button>
+        );
+
         if (buttonType === "icon") {
             if (isTooltip) {
                 return (
                     <TooltipProvider>
                         <Tooltip>
-                            <TooltipTrigger asChild>
-                                <Button
-                                    variant={variant}
-                                    size="icon"
-                                    role="button"
-                                    aria-label={nodeType}
-                                    aria-pressed={isActive}
-                                    tabIndex={-1}
-                                    disabled={isDisabled}
-                                    onClick={handleClick}
-                                    className={cn(
-                                        isActive && "bg-accent text-accent-foreground dark:bg-accent/50",
-                                        className,
-                                    )}
-                                    ref={ref}
-                                    {...buttonProps}
-                                >
-                                    <Icon className="pointer-events-none size-4 shrink-0" />
-                                </Button>
-                            </TooltipTrigger>
+                            <TooltipTrigger asChild>{IconButtonComponent}</TooltipTrigger>
                             <TooltipContent className="flex flex-col items-center justify-center">
                                 <span>{text ? text : label}</span>
                                 {shortcutKey && <Shortcut shortcutKey={shortcutKey} />}
@@ -96,26 +104,11 @@ export const NodeButton = React.forwardRef<HTMLButtonElement, NodeButtonProps>(
                     </TooltipProvider>
                 );
             } else {
-                return (
-                    <Button
-                        variant={variant}
-                        size="icon"
-                        role="button"
-                        aria-label={nodeType}
-                        aria-pressed={isActive}
-                        tabIndex={-1}
-                        disabled={isDisabled}
-                        onClick={handleClick}
-                        className={cn(isActive && "bg-accent text-accent-foreground dark:bg-accent/50", className)}
-                        ref={ref}
-                        {...buttonProps}
-                    >
-                        <Icon className="pointer-events-none size-4 shrink-0" />
-                    </Button>
-                );
+                return IconButtonComponent;
             }
         }
 
+        // Default button component
         return (
             <Button
                 variant={variant}
@@ -137,16 +130,8 @@ export const NodeButton = React.forwardRef<HTMLButtonElement, NodeButtonProps>(
     },
 );
 NodeButton.displayName = "NodeButton";
-export interface NodeButtonDropdownItemProps extends Omit<React.ComponentProps<typeof DropdownMenuItem>, "type"> {
-    editor?: Editor | null;
-    nodeType: NodeType;
-    text?: string;
-    hide?: boolean;
-    className?: string;
-    disabled?: boolean;
-}
 
-export const NodeButtonDropdownItem = React.forwardRef<HTMLDivElement, NodeButtonDropdownItemProps>(
+export const NodeButtonDropdownItem = React.forwardRef<HTMLDivElement, NodeDropdownItemProps>(
     ({ editor: providedEditor, nodeType, text, hide, className = "", disabled = false, onSelect, ...props }, ref) => {
         const editor = useTiptapEditor(providedEditor);
 
@@ -172,6 +157,7 @@ export const NodeButtonDropdownItem = React.forwardRef<HTMLDivElement, NodeButto
             return null;
         }
 
+        // Dropdown-item component
         return (
             <DropdownMenuItem
                 ref={ref}
