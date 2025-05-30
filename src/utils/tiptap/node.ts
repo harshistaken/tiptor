@@ -7,11 +7,12 @@ import { Icons } from "@/assets/icons";
 // --- Utils ---
 import { isNodeInSchema } from "@/utils/tiptap/schema";
 
-export type NodeType = "codeBlock" | "blockquote" | "bulletList" | "orderedList" | "taskList";
+export type NodeType = "codeBlock" | "blockquote" | "bulletList" | "orderedList" | "taskList" | "horizontalRule";
 
 export const nodeIcons = {
     codeBlock: Icons.MaterialCode,
     blockquote: Icons.MaterialFormatQuote,
+    horizontalRule: Icons.MaterialHorizontalRule,
     bulletList: Icons.MaterialFormatListBulleted,
     orderedList: Icons.MaterialFormatListNumbered,
     taskList: Icons.MaterialCheckList,
@@ -28,6 +29,7 @@ export const nodeShortcutKeys: Partial<Record<NodeType, string>> = {
 export const nodeLabels: Record<NodeType, string> = {
     codeBlock: "Code Block",
     blockquote: "Blockquote",
+    horizontalRule: "Divider",
     bulletList: "Bullet List",
     orderedList: "Ordered List",
     taskList: "Task List",
@@ -41,6 +43,8 @@ export function canToggleNode(editor: Editor | null, type: NodeType): boolean {
             return editor.can().toggleNode("codeBlock", "paragraph");
         case "blockquote":
             return editor.can().toggleWrap("blockquote");
+        case "horizontalRule":
+            return editor.can().setHorizontalRule();
         case "bulletList":
             return editor.can().toggleBulletList();
         case "orderedList":
@@ -60,6 +64,8 @@ export function isNodeActive(editor: Editor | null, type: NodeType): boolean {
             return editor.isActive("codeBlock");
         case "blockquote":
             return editor.isActive("blockquote");
+        case "horizontalRule":
+            return editor.isActive("horizontalRule");
         case "bulletList":
             return editor.isActive("bulletList");
         case "orderedList":
@@ -79,6 +85,8 @@ export function toggleNode(editor: Editor | null, type: NodeType): boolean {
             return editor.chain().focus().toggleNode("codeBlock", "paragraph").run();
         case "blockquote":
             return editor.chain().focus().toggleWrap("blockquote").run();
+        case "horizontalRule":
+            return editor.chain().focus().setHorizontalRule().run();
         case "bulletList":
             return editor.chain().focus().toggleBulletList().run();
         case "orderedList":
