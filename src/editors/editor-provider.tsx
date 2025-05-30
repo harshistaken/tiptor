@@ -1,13 +1,19 @@
-import { EditorContext, useEditor } from "@tiptap/react";
-
-import { Document } from "@tiptap/extension-document";
-import { Placeholder } from "@tiptap/extension-placeholder";
+import { cn } from "@/lib/utils";
 import React from "react";
+import { EditorContext, ReactNodeViewRenderer, useEditor } from "@tiptap/react";
+
+// --- Components ---
+import { MultiLanguageCodeBlock } from "@/components/multi-language-codeblock";
+
 // --- Tiptap Core Extensions ---
 import { StarterKit } from "@tiptap/starter-kit";
+import { Document } from "@tiptap/extension-document";
+import { Placeholder } from "@tiptap/extension-placeholder";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Typography } from "@tiptap/extension-typography";
-import { cn } from "@/lib/utils";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
+
 // --- Contexts ---
 import { useEditorContext } from "@/contexts/editor-context";
 import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
@@ -17,6 +23,8 @@ import { useEditorSettingsContext } from "@/contexts/editor-settings-context";
 const EditorDocumentStructure = Document.extend({
     content: "heading block*",
 });
+
+const lowlight = createLowlight(all);
 
 interface EditorProviderProps {
     children: React.ReactNode;
@@ -37,6 +45,11 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
                 document: false,
             }),
             EditorDocumentStructure, // Custom document structure
+            CodeBlockLowlight.extend({
+                addNodeView() {
+                    return ReactNodeViewRenderer(MultiLanguageCodeBlock);
+                },
+            }).configure({ lowlight, defaultLanguage: "plaintext" }),
             Typography,
             TextStyle.configure({ mergeNestedSpanStyles: true }),
             Placeholder.configure({

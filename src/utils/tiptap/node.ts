@@ -1,50 +1,90 @@
 import * as React from "react";
-
 import type { Editor } from "@tiptap/react";
+
+// --- Assets ---
 import { Icons } from "@/assets/icons";
+
+// --- Utils ---
 import { isNodeInSchema } from "@/utils/tiptap/schema";
 
-export type NodeType = "codeBlock" | "blockquote";
+export type NodeType = "codeBlock" | "blockquote" | "bulletList" | "orderedList" | "taskList";
 
 export const nodeIcons = {
     codeBlock: Icons.MaterialCode,
     blockquote: Icons.MaterialFormatQuote,
+    bulletList: Icons.MaterialFormatListBulleted,
+    orderedList: Icons.MaterialFormatListNumbered,
+    taskList: Icons.MaterialCheckList,
 };
 
 export const nodeShortcutKeys: Partial<Record<NodeType, string>> = {
     codeBlock: "Ctrl-Alt-c",
     blockquote: "Ctrl-Shift-b",
+    bulletList: "Ctrl-Shift-8",
+    orderedList: "Ctrl-Shift-7",
+    taskList: "Ctrl-Shift-9",
 };
 
 export const nodeLabels: Record<NodeType, string> = {
     codeBlock: "Code Block",
     blockquote: "Blockquote",
+    bulletList: "Bullet List",
+    orderedList: "Ordered List",
+    taskList: "Task List",
 };
 
 export function canToggleNode(editor: Editor | null, type: NodeType): boolean {
     if (!editor) return false;
 
-    try {
-        return type === "codeBlock"
-            ? editor.can().toggleNode("codeBlock", "paragraph")
-            : editor.can().toggleWrap("blockquote");
-    } catch {
-        return false;
+    switch (type) {
+        case "codeBlock":
+            return editor.can().toggleNode("codeBlock", "paragraph");
+        case "blockquote":
+            return editor.can().toggleWrap("blockquote");
+        case "bulletList":
+            return editor.can().toggleBulletList();
+        case "orderedList":
+            return editor.can().toggleOrderedList();
+        case "taskList":
+            return editor.can().toggleList("taskList", "taskItem");
+        default:
+            return false;
     }
 }
 
 export function isNodeActive(editor: Editor | null, type: NodeType): boolean {
     if (!editor) return false;
-    return editor.isActive(type);
+
+    switch (type) {
+        case "codeBlock":
+            return editor.isActive("codeBlock");
+        case "blockquote":
+            return editor.isActive("blockquote");
+        case "bulletList":
+            return editor.isActive("bulletList");
+        case "orderedList":
+            return editor.isActive("orderedList");
+        case "taskList":
+            return editor.isActive("taskList");
+        default:
+            return false;
+    }
 }
 
 export function toggleNode(editor: Editor | null, type: NodeType): boolean {
     if (!editor) return false;
 
-    if (type === "codeBlock") {
-        return editor.chain().focus().toggleNode("codeBlock", "paragraph").run();
-    } else {
-        return editor.chain().focus().toggleWrap("blockquote").run();
+    switch (type) {
+        case "codeBlock":
+            return editor.chain().focus().toggleNode("codeBlock", "paragraph").run();
+        case "blockquote":
+            return editor.chain().focus().toggleWrap("blockquote").run();
+        case "bulletList":
+            return editor.chain().focus().toggleBulletList().run();
+        case "orderedList":
+            return editor.chain().focus().toggleOrderedList().run();
+        case "taskList":
+            return editor.chain().focus().toggleList("taskList", "taskItem").run();
     }
 }
 
