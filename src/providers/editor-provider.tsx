@@ -30,6 +30,11 @@ import { Typography } from "@tiptap/extension-typography";
 
 const lowlight = createLowlight(all);
 
+// --- Custom extensions ---
+
+import Selection from "@/extensions/selection-extension";
+import TrailingNode from "@/extensions/trailing-node-extension";
+
 // --- Types ---
 
 interface EditorContextType {
@@ -149,6 +154,10 @@ export function EditorProvider({ children, editorClassName, characterLimit = 100
                 types: ["heading", "paragraph"],
             }),
             Typography,
+
+            // Custom extensions
+            Selection,
+            TrailingNode,
         ],
 
         // Set the initial content of the editor
