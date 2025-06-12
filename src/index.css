@@ -96,6 +96,8 @@
     --font-open-sans: "Open_Sans", var(--font-sans);
     --font-fira-code: "Fira_Code", var(--font-mono);
     --breakpoint-xs: 24rem;
+    --color-placeholder: var(--placeholder);
+    --color-code-background: var(--code-background);
 }
 
 :root {
@@ -131,6 +133,10 @@
     --sidebar-accent-foreground: oklch(0.2046 0 0);
     --sidebar-border: oklch(0.9219 0 0);
     --sidebar-ring: oklch(0.709 0 0);
+
+    /* Custom variables */
+    --placeholder: oklch(0.3705 0 0 / 45%);
+    --code-background: oklch(0.9731 0.0041 91.45);
 }
 
 .dark {
@@ -165,6 +171,10 @@
     --sidebar-accent-foreground: oklch(0.985 0 0);
     --sidebar-border: oklch(0.275 0 0);
     --sidebar-ring: oklch(0.439 0 0);
+
+    /* Custom variables */
+    --placeholder: oklch(1 0 0 / 28.2%);
+    --code-background: oklch(1 0 0 / 3%);
 }
 
 /* Base styles */
@@ -202,4 +212,11 @@
 
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
+}
+
+/* Tiptap placeholder extension styles */
+@utility tiptap-placeholder {
+    :is(h1, h2, h3, h4, h5, h6, p).is-empty::before {
+        @apply text-placeholder pointer-events-none float-left h-0 content-[attr(data-placeholder)];
+    }
 }
