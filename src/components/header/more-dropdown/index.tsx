@@ -23,6 +23,7 @@ import {
 } from "lucide-react";
 import React from "react";
 import { FontFamilySelector } from "./font-family-selector";
+import { HistoryActionDropdownItem } from "../history-action-dropdown";
 
 export function MoreDropdown() {
     const [isOpen, setIsOpen] = React.useState(false);
@@ -32,7 +33,11 @@ export function MoreDropdown() {
     return (
         <CustomDropdown open={isOpen} onOpenChange={setIsOpen}>
             <CustomDropdownTrigger asChild>
-                <CustomButton variant="ghost" size="icon">
+                <CustomButton
+                    variant="ghost"
+                    size="icon"
+                    className="data-[state=open]:bg-accent dark:data-[state=open]:bg-accent/50"
+                >
                     <EllipsisIcon />
                 </CustomButton>
             </CustomDropdownTrigger>
@@ -40,13 +45,15 @@ export function MoreDropdown() {
                 align="end"
                 side="bottom"
                 sideOffset={8}
-                className="max-h-[80vh] w-64 overflow-x-hidden overflow-y-auto font-sans"
+                className="max-h-[80vh] w-64 overflow-x-hidden overflow-y-auto"
             >
                 <CustomDropdownGroup className="pb-2">
                     <FontFamilySelector disabled={settings.readOnly} />
                 </CustomDropdownGroup>
-                <CustomDropdownSeparator className="my-3 h-1 w-1/9 rounded-full" />
+                <CustomDropdownSeparator className="my-3 h-1 w-4 rounded-full" />
                 <CustomDropdownGroup>
+                    <HistoryActionDropdownItem action="undo" disabled={settings.readOnly} />
+                    <HistoryActionDropdownItem action="redo" disabled={settings.readOnly} />
                     <CustomDropdownItem
                         className="focus:!text-destructive focus:[&_svg]:!text-destructive"
                         onSelect={() => setContent("")}
@@ -56,7 +63,7 @@ export function MoreDropdown() {
                         <span>Clear all</span>
                     </CustomDropdownItem>
                 </CustomDropdownGroup>
-                <CustomDropdownSeparator className="my-3 h-1 w-1/9 rounded-full" />
+                <CustomDropdownSeparator className="my-3 h-1 w-4 rounded-full" />
                 <CustomDropdownGroup>
                     <CustomDropdownSwitchItem
                         checked={settings.smallText}
@@ -80,7 +87,7 @@ export function MoreDropdown() {
                         <span>Table of contents</span>
                     </CustomDropdownSwitchItem>
                 </CustomDropdownGroup>
-                <CustomDropdownSeparator className="my-3 h-1 w-1/9 rounded-full" />
+                <CustomDropdownSeparator className="my-3 h-1 w-4 rounded-full" />
                 <CustomDropdownGroup>
                     <CustomDropdownItem>
                         <LanguagesIcon />

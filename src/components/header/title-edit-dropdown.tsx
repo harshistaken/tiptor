@@ -23,7 +23,7 @@ export function TitleEditDropdown() {
                 side="bottom"
                 sideOffset={4}
                 alignOffset={-24}
-                className="w-72 rounded-lg font-sans"
+                className="w-72 rounded-lg"
             >
                 <input
                     type="text"

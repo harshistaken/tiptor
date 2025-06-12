@@ -1,15 +1,20 @@
 import React from "react";
 import { cn } from "@/lib/utils";
-import { type Editor, useEditor } from "@tiptap/react";
 import { useEditorSettings } from "./editor-settings-provider";
+import { type Editor, useEditor, ReactNodeViewRenderer } from "@tiptap/react";
+
+// --- Components ---
+
+import { CodeBlockWithLanguage } from "@/components/body/codeblock-with-language";
 
 // --- Extensions ---
 
 import { StarterKit } from "@tiptap/starter-kit";
-import { Placeholder } from "@tiptap/extension-placeholder";
-import { TextStyle } from "@tiptap/extension-text-style";
-import { Typography } from "@tiptap/extension-typography";
-import FontFamily from "@tiptap/extension-font-family";
+import { CodeBlockLowlight } from "@tiptap/extension-code-block-lowlight";
+import { all, createLowlight } from "lowlight";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { TaskList } from "@tiptap/extension-task-list";
+const lowlight = createLowlight(all);
 
 // --- Types ---
 
@@ -42,42 +47,19 @@ export function EditorProvider({ children, editorClassName }: EditorProviderProp
         // Set the extensions of the editor
         extensions: [
             StarterKit.configure({
+                codeBlock: false,
                 heading: {
                     levels: [1, 2, 3],
                 },
-                codeBlock: false,
             }),
-            // CodeBlockLowlight.extend({
-            //     addNodeView() {
-            //         return ReactNodeViewRenderer(MultiLanguageCodeBlock);
-            //     },
-            // }).configure({ lowlight, defaultLanguage: "plaintext" }),
-            FontFamily,
-            Typography,
-            TextStyle.configure({ mergeNestedSpanStyles: true }),
-            Placeholder.configure({
-                // Use different placeholders depending on the node type:
-                placeholder: ({ node, pos }) => {
-                    if (node.type.name === "heading") {
-                        // Check if this is the first heading (title heading)
-                        if (pos === 0) {
-                            return "New page";
-                        }
-                        // For other headings, show level-specific placeholders
-                        switch (node.attrs.level) {
-                            case 1:
-                                return "Heading 1";
-                            case 2:
-                                return "Heading 2";
-                            case 3:
-                                return "Heading 3";
-                            default:
-                                return "Heading"; // Fallback for other levels if any
-                        }
-                    }
-                    // Default placeholder for other node types or when the first node isn't one of the above
-                    return "Write, press '/' for commands...";
+            CodeBlockLowlight.extend({
+                addNodeView() {
+                    return ReactNodeViewRenderer(CodeBlockWithLanguage);
                 },
+            }).configure({ lowlight, defaultLanguage: "plaintext" }),
+            TaskList,
+            TaskItem.configure({
+                nested: true,
             }),
         ],
 

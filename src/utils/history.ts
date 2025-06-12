@@ -1,13 +1,13 @@
 import * as React from "react";
 import { type Editor } from "@tiptap/react";
-import { Redo2, Undo2 } from "lucide-react";
+import { Redo2Icon, Undo2Icon } from "lucide-react";
 import { useResolvedEditor } from "@/providers/editor-provider";
 
 export type HistoryAction = "undo" | "redo";
 
 export const historyIcons: Record<HistoryAction, React.ElementType> = {
-    undo: Undo2,
-    redo: Redo2,
+    undo: Undo2Icon,
+    redo: Redo2Icon,
 };
 
 export const historyShortcutKeys: Partial<Record<HistoryAction, string>> = {

@@ -1,4 +1,11 @@
+import { useEditorContext } from "@/providers/editor-provider";
+import { EditorContent } from "@tiptap/react";
+
 export function EditorBody() {
+    const { editor } = useEditorContext();
+
+    if (!editor) return null;
+
     return (
         <main className="flex h-[calc(100vh-44px)] w-full flex-col">
             <div className="flex-1 overflow-y-auto">
@@ -11,8 +18,7 @@ export function EditorBody() {
                         } as React.CSSProperties
                     }
                 >
-                    {/* TODO: replace with actual editor content */}
-                    <div className="col-[content] w-full" />
+                    <EditorContent editor={editor} role="presentation" className="col-[content] mt-20 w-full" />
                 </div>
             </div>
         </main>
