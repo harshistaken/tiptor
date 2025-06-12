@@ -1,13 +1,13 @@
 import * as React from "react";
 import { type Editor } from "@tiptap/react";
-import { Icons } from "@/assets/icons";
-import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
+import { Redo2, Undo2 } from "lucide-react";
+import { useResolvedEditor } from "@/providers/editor-provider";
 
 export type HistoryAction = "undo" | "redo";
 
 export const historyIcons: Record<HistoryAction, React.ElementType> = {
-    undo: Icons.MaterialUndo,
-    redo: Icons.MaterialRedo,
+    undo: Undo2,
+    redo: Redo2,
 };
 
 export const historyShortcutKeys: Partial<Record<HistoryAction, string>> = {
@@ -46,7 +46,7 @@ export function isHistoryActionDisabled(
 }
 
 export function useHistoryAction(providedEditor: Editor | null, action: HistoryAction, disabled: boolean = false) {
-    const editor = useTiptapEditor(providedEditor);
+    const editor = useResolvedEditor(providedEditor);
 
     const canExecute = React.useMemo(() => canExecuteHistoryAction(editor, action), [editor, action]);
 

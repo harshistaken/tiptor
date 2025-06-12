@@ -1,5 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+// --- Types ---
+
 type Theme = "dark" | "light";
 
 type ThemeProviderProps = {
@@ -13,12 +15,18 @@ type ThemeProviderState = {
     setTheme: (theme: Theme) => void;
 };
 
+// --- Constants ---
+
 const initialState: ThemeProviderState = {
     theme: "light",
     setTheme: () => null,
 };
 
+// --- Context ---
+
 const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
+
+// --- Provider ---
 
 export function ThemeProvider({
     children,
@@ -50,6 +58,8 @@ export function ThemeProvider({
         </ThemeProviderContext.Provider>
     );
 }
+
+// --- Hooks ---
 
 export const useTheme = () => {
     const context = useContext(ThemeProviderContext);

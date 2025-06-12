@@ -1,5 +1,6 @@
 import { type Editor } from "@tiptap/react";
-import { isMarkInSchema } from "@/utils/tiptap/schema";
+import { isMarkInSchema } from "@/utils/common";
+import { useResolvedEditor } from "@/providers/editor-provider";
 
 export interface FontFamily {
     label: string;
@@ -70,7 +71,8 @@ export function shouldShowFontFamily(params: { editor: Editor | null; textStyleI
     return true;
 }
 
-export function useFontFamilyState(editor: Editor | null, fontFamily: FontFamily, disabled: boolean = false) {
+export function useFontFamilyState(providedEditor: Editor | null, fontFamily: FontFamily, disabled: boolean = false) {
+    const editor = useResolvedEditor(providedEditor);
     const textStyleInSchema = isMarkInSchema("textStyle", editor);
     const isDisabled = isFontFamilyDisabled(editor, fontFamily, disabled);
     const isActive = isFontFamilyActive(editor, fontFamily);

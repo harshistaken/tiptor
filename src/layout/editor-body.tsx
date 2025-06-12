@@ -1,13 +1,6 @@
-import { EditorContent, type Editor } from "@tiptap/react";
-import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
-
-export function EditorContentContainer({ providedEditor }: { providedEditor?: Editor }) {
-    const editor = useTiptapEditor(providedEditor);
-
-    if (!editor) return null;
-
+export function EditorBody() {
     return (
-        <main className="bg-background flex h-[calc(100vh-44px)] w-full flex-col">
+        <main className="flex h-[calc(100vh-44px)] w-full flex-col">
             <div className="flex-1 overflow-y-auto">
                 <div
                     className="grid w-full grid-cols-[[full-start]_var(--margin-left-width,_var(--margin-width))_[content-start]_var(--content-width)_[content-end]_var(--margin-right-width,_var(--margin-width))_[full-end]] pb-[30vh]"
@@ -18,7 +11,8 @@ export function EditorContentContainer({ providedEditor }: { providedEditor?: Ed
                         } as React.CSSProperties
                     }
                 >
-                    <EditorContent editor={editor} role="presentation" className="col-[content] mt-20 w-full" />
+                    {/* TODO: replace with actual editor content */}
+                    <div className="col-[content] w-full" />
                 </div>
             </div>
         </main>

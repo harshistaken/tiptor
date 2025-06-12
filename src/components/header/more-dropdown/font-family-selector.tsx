@@ -1,32 +1,38 @@
 import React from "react";
 import { type Editor } from "@tiptap/react";
-import { Button } from "@/components/ui/button";
+
+// --- Utils ---
 import { cn } from "@/lib/utils";
-import { isMarkInSchema } from "@/utils/tiptap/schema";
 import {
     DEFAULT_FONT_FAMILIES,
-    type FontFamily,
     shouldShowFontFamily,
     toggleFontFamily,
     useFontFamilyState,
-} from "@/utils/tiptap/font-family";
-import { useTiptapEditor } from "@/hooks/use-tiptap-editor";
+    type FontFamily,
+} from "@/utils/font-family";
+import { isMarkInSchema } from "@/utils/common";
 
-export interface FontFamilyPickerProps extends Omit<React.ComponentProps<"div">, "type"> {
+// --- Providers ---
+import { useResolvedEditor } from "@/providers/editor-provider";
+
+// --- Components ---
+import { CustomButton } from "@/components/common/custom-button";
+
+export interface FontFamilySelectorProps extends Omit<React.ComponentProps<"div">, "type"> {
     editor?: Editor | null;
     fontFamilies?: FontFamily[];
     className?: string;
     disabled?: boolean;
 }
 
-export function FontFamilyPicker({
+export function FontFamilySelector({
     editor: providedEditor,
     fontFamilies = DEFAULT_FONT_FAMILIES,
     disabled = false,
     className,
     ...props
-}: FontFamilyPickerProps) {
-    const editor = useTiptapEditor(providedEditor);
+}: FontFamilySelectorProps) {
+    const editor = useResolvedEditor(providedEditor);
     const textStyleInSchema = isMarkInSchema("textStyle", editor);
 
     if (!editor || !textStyleInSchema) return null;
@@ -34,7 +40,7 @@ export function FontFamilyPicker({
     return (
         <div className={cn("grid w-full grid-cols-3 grid-rows-2 p-1", className)} {...props}>
             {fontFamilies.map((fontFamilyOption) => (
-                <FontFamilyPickerItem
+                <FontFamilySelectorItem
                     key={fontFamilyOption.value}
                     editor={editor}
                     disabled={disabled}
@@ -46,14 +52,14 @@ export function FontFamilyPicker({
     );
 }
 
-export interface FontFamilyPickerItemProps extends Omit<React.ComponentProps<typeof Button>, "type"> {
+export interface FontFamilySelectorItemProps extends Omit<React.ComponentProps<typeof CustomButton>, "type"> {
     editor?: Editor | null;
     fontFamily: FontFamily;
 }
 
-export const FontFamilyPickerItem = React.forwardRef<HTMLButtonElement, FontFamilyPickerItemProps>(
+export const FontFamilySelectorItem = React.forwardRef<HTMLButtonElement, FontFamilySelectorItemProps>(
     ({ editor: providedEditor, fontFamily, className = "", disabled, onClick, ...buttonProps }, ref) => {
-        const editor = useTiptapEditor(providedEditor);
+        const editor = useResolvedEditor(providedEditor);
         const { textStyleInSchema, isDisabled, isActive } = useFontFamilyState(editor, fontFamily, disabled);
 
         const handleClick = React.useCallback(
@@ -78,7 +84,7 @@ export const FontFamilyPickerItem = React.forwardRef<HTMLButtonElement, FontFami
         if (!showButton) return null;
 
         return (
-            <Button
+            <CustomButton
                 variant="ghost"
                 size="sm"
                 role="button"
@@ -88,7 +94,7 @@ export const FontFamilyPickerItem = React.forwardRef<HTMLButtonElement, FontFami
                 aria-label={fontFamily.label}
                 aria-pressed={isActive}
                 className={cn(
-                    "flex h-fit w-fit cursor-pointer flex-col gap-1 pt-3 pb-2 transition-colors duration-300 select-none",
+                    "flex h-fit w-fit flex-col gap-1 pt-3 pb-2 transition-colors duration-300 select-none",
                     className,
                 )}
                 {...buttonProps}
@@ -96,10 +102,10 @@ export const FontFamilyPickerItem = React.forwardRef<HTMLButtonElement, FontFami
                 <span className={cn("text-2xl", isActive && "text-primary")} style={{ fontFamily: fontFamily.value }}>
                     Ag
                 </span>
-                <span className="text-secondary-foreground text-center text-xs text-wrap capitalize">
+                <span className="text-muted-foreground text-center text-xs text-wrap capitalize">
                     {fontFamily.label}
                 </span>
-            </Button>
+            </CustomButton>
         );
     },
 );
