@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { type Editor } from "@tiptap/react";
 import { CustomButton } from "../common/custom-button";
 import { CustomDropdownItem, CustomDropdownShortcut } from "@/components/common/custom-dropdown";
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 import { ShortcutKey } from "../common/shortcut-key";
 import { type NodeType, useNodeState } from "@/utils/node";
 import { CustomTooltip } from "../common/custom-tooltip";

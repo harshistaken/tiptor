@@ -3,7 +3,7 @@ import { type Editor } from "@tiptap/react";
 import { ShortcutKey } from "@/components/common/shortcut-key";
 import { CustomDropdownItem, CustomDropdownShortcut } from "@/components/common/custom-dropdown";
 import { useHistoryAction, type HistoryAction } from "@/utils/history";
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 
 export interface HistoryActionDropdownItemProps extends React.ComponentProps<typeof CustomDropdownItem> {
     editor?: Editor | null;

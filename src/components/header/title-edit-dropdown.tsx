@@ -1,10 +1,10 @@
 import { CustomButton } from "@/components/common/custom-button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { useEditorContext } from "@/providers/editor-provider";
+import { useEditorContentContext } from "@/providers/editor-content-provider";
 import { useEditorSettings } from "@/providers/editor-settings-provider";
 
 export function TitleEditDropdown() {
-    const { title, setTitle } = useEditorContext();
+    const { title, setTitle } = useEditorContentContext();
     const { settings } = useEditorSettings();
     return (
         <DropdownMenu>

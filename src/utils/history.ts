@@ -1,7 +1,7 @@
 import * as React from "react";
 import { type Editor } from "@tiptap/react";
 import { Redo2Icon, Undo2Icon } from "lucide-react";
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 
 export type HistoryAction = "undo" | "redo";
 

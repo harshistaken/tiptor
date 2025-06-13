@@ -8,7 +8,7 @@ import {
     CustomDropdownSwitchItem,
     CustomDropdownTrigger,
 } from "@/components/common/custom-dropdown";
-import { useEditorContext } from "@/providers/editor-provider";
+import { useEditorContentContext } from "@/providers/editor-content-provider";
 import { useEditorSettings } from "@/providers/editor-settings-provider";
 import {
     AArrowDownIcon,
@@ -27,7 +27,7 @@ import { HistoryActionDropdownItem } from "../history-action-dropdown";
 
 export function MoreDropdown() {
     const [isOpen, setIsOpen] = React.useState(false);
-    const { setContent } = useEditorContext();
+    const { setContent } = useEditorContentContext();
     const { settings, updateSettings } = useEditorSettings();
 
     return (

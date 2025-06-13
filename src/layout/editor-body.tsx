@@ -1,8 +1,8 @@
-import { useEditorContext } from "@/providers/editor-provider";
-import { EditorContent } from "@tiptap/react";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
+import { type Editor, EditorContent } from "@tiptap/react";
 
-export function EditorBody() {
-    const { editor } = useEditorContext();
+export function EditorBody({ providedEditor }: { providedEditor?: Editor | null }) {
+    const editor = useResolvedEditor(providedEditor);
 
     if (!editor) return null;
 

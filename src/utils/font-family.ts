@@ -1,6 +1,6 @@
 import { type Editor } from "@tiptap/react";
 import { isMarkInSchema } from "@/utils/common";
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 
 export interface FontFamily {
     label: string;

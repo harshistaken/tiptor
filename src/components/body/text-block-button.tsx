@@ -5,7 +5,7 @@ import { CustomButton } from "../common/custom-button";
 import { ShortcutKey } from "../common/shortcut-key";
 import { type TextBlockType, useTextBlockState } from "@/utils/text-block";
 import { CustomDropdownItem, CustomDropdownShortcut } from "../common/custom-dropdown";
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 import { CustomTooltip } from "../common/custom-tooltip";
 
 // --- Types & Interfaces ---

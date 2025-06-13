@@ -13,7 +13,7 @@ import {
 import { isMarkInSchema } from "@/utils/common";
 
 // --- Providers ---
-import { useResolvedEditor } from "@/providers/editor-provider";
+import { useResolvedEditor } from "@/hooks/use-resolved-editor";
 
 // --- Components ---
 import { CustomButton } from "@/components/common/custom-button";

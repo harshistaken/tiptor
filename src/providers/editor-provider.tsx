@@ -1,7 +1,7 @@
 import React from "react";
 import { cn } from "@/lib/utils";
 import { useEditorSettings } from "./editor-settings-provider";
-import { type Editor, useEditor, ReactNodeViewRenderer } from "@tiptap/react";
+import { useEditor, ReactNodeViewRenderer, EditorContext } from "@tiptap/react";
 
 // --- Components ---
 
@@ -37,30 +37,23 @@ import TrailingNode from "@/extensions/trailing-node-extension";
 
 // --- Types ---
 
-interface EditorContextType {
-    editor: Editor | null;
-    title: string;
-    setTitle: (title: string) => void;
-    content: string;
-    setContent: (content: string) => void;
-}
-
 interface EditorProviderProps {
     children: React.ReactNode;
     editorClassName?: string;
     characterLimit?: number;
+    content: string;
+    onContentChange: (content: string) => void;
 }
-
-// --- Context ---
-
-export const EditorContext = React.createContext<EditorContextType | null>(null);
 
 // --- Provider ---
 
-export function EditorProvider({ children, editorClassName, characterLimit = 1000 }: EditorProviderProps) {
-    const [title, setTitle] = React.useState("");
-    const [content, setContent] = React.useState("");
-
+export function EditorProvider({
+    children,
+    editorClassName,
+    characterLimit = 1000,
+    content,
+    onContentChange,
+}: EditorProviderProps) {
     const { settings } = useEditorSettings();
 
     const editor = useEditor({
@@ -165,6 +158,9 @@ export function EditorProvider({ children, editorClassName, characterLimit = 100
         // Set the editable state of the editor
         editable: !settings.readOnly,
 
+        // Disable immediate rendering to prevent the editor from rendering before the content is set
+        immediatelyRender: false,
+
         // Set the editor props
         editorProps: {
             attributes: {
@@ -172,13 +168,14 @@ export function EditorProvider({ children, editorClassName, characterLimit = 100
                 autoCorrect: "false",
                 autoCapitalize: "false",
                 spellCheck: "false",
-                class: cn("w-full min-w-full tiptap-placeholder", editorClassName),
+                class: cn("w-full min-w-full tiptap-placeholder prose", editorClassName),
             },
         },
 
         // Update the content state when the editor content changes
         onUpdate({ editor }) {
-            setContent(editor.getHTML());
+            onContentChange?.(editor.getHTML());
+            console.log(editor.storage.characterCount.characters());
         },
 
         // Enable content check to prevent invalid content from being saved
@@ -188,20 +185,11 @@ export function EditorProvider({ children, editorClassName, characterLimit = 100
         },
     });
 
-    const contextValue = React.useMemo(
-        () => ({
-            editor,
-            content,
-            title,
-            setTitle,
-            setContent,
-        }),
-        [editor, content, title],
-    );
-
     // This effect for readOnly is still perfectly valid
     React.useEffect(() => {
-        editor?.setEditable(!settings.readOnly);
+        if (editor) {
+            editor.setEditable(!settings.readOnly);
+        }
     }, [editor, settings.readOnly]);
 
     // Sync the content of the editor with the content state
@@ -215,21 +203,5 @@ export function EditorProvider({ children, editorClassName, characterLimit = 100
         return null;
     }
 
-    return <EditorContext.Provider value={contextValue}>{children}</EditorContext.Provider>;
-}
-
-// --- Hooks ---
-
-export function useEditorContext() {
-    const context = React.useContext(EditorContext);
-    if (!context) {
-        throw new Error("useEditorContext must be used within an EditorProvider");
-    }
-    return context;
-}
-
-export function useResolvedEditor(providedEditor?: Editor | null) {
-    const { editor: editorFromContext } = useEditorContext();
-
-    return React.useMemo(() => providedEditor || editorFromContext, [providedEditor, editorFromContext]);
+    return <EditorContext.Provider value={{ editor }}>{children}</EditorContext.Provider>;
 }
