@@ -50,7 +50,7 @@ interface EditorProviderProps {
 export function EditorProvider({
     children,
     editorClassName,
-    characterLimit = 1000,
+    characterLimit = 15000,
     content,
     onContentChange,
 }: EditorProviderProps) {
