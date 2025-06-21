@@ -13,7 +13,7 @@
 }
 
 .prose {
-    @apply text-foreground z-10 text-base leading-normal;
+    @apply text-foreground z-10 leading-normal;
 
     & h1:not(.not-prose h1),
     & h2:not(.not-prose h2),

@@ -50,7 +50,7 @@ interface EditorProviderProps {
 export function EditorProvider({
     children,
     editorClassName,
-    characterLimit = 15000,
+    characterLimit = 35000,
     content,
     onContentChange,
 }: EditorProviderProps) {
@@ -168,7 +168,11 @@ export function EditorProvider({
                 autoCorrect: "false",
                 autoCapitalize: "false",
                 spellCheck: "false",
-                class: cn("w-full min-w-full tiptap-placeholder prose", editorClassName),
+                class: cn(
+                    "w-full min-w-full prose tiptap-placeholder",
+                    settings.smallText ? "text-sm" : "text-base",
+                    editorClassName,
+                ),
             },
         },
 
